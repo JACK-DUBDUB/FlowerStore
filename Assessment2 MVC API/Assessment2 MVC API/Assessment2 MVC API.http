@@ -1,0 +1,6 @@
+@Assessment2_MVC_API_HostAddress = http://localhost:5182
+
+GET {{Assessment2_MVC_API_HostAddress}}product/
+Accept: application/json
+
+###
