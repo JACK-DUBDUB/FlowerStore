@@ -50,8 +50,16 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{dcc4ea97-1c0c-482b-b205-e541c0df9728}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{dcc4ea97-1c0c-482b-b205-e541c0df9728}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -62,8 +70,7 @@
               "RelativeToolTip": "Assessment2 MVC API\\Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T12:37:36.799Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T12:37:36.799Z"
             },
             {
               "$type": "Document",
@@ -75,8 +82,7 @@
               "RelativeToolTip": "Assessment2 MVC API\\Models\\ApplicationUser.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T12:35:35.066Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T12:35:35.066Z"
             },
             {
               "$type": "Document",
@@ -88,8 +94,7 @@
               "RelativeToolTip": "Assessment2 MVC API\\Models\\ApplicationRole.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T12:35:57.576Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T12:35:57.576Z"
             },
             {
               "$type": "Document",
@@ -101,8 +106,7 @@
               "RelativeToolTip": "Assessment2 MVC API\\Models\\UserRole.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T12:21:55.156Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T12:21:55.156Z"
             },
             {
               "$type": "Document",
@@ -114,8 +118,7 @@
               "RelativeToolTip": "Assessment2 MVC API\\ViewModels\\LoginViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T12:20:12.814Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T12:20:12.814Z"
             },
             {
               "$type": "Document",
@@ -123,9 +126,9 @@
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "Assessment2 MVC API\\Controllers\\AccountController.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\AccountController.cs*",
-              "RelativeToolTip": "Assessment2 MVC API\\Controllers\\AccountController.cs*",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAC4AAAAVAAAAAAAAAA==",
+              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Assessment2 MVC API\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-22T10:42:27.368Z",
               "EditorCaption": ""
@@ -140,8 +143,7 @@
               "RelativeToolTip": "Assessment2 MVC API\\Controllers\\StoreController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T10:42:12.106Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T10:42:12.106Z"
             },
             {
               "$type": "Document",
@@ -153,8 +155,7 @@
               "RelativeToolTip": "Assessment2 MVC API\\Data\\LocalDataService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T10:42:05.438Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T10:42:05.438Z"
             },
             {
               "$type": "Document",
@@ -166,8 +167,7 @@
               "RelativeToolTip": "Assessment2 MVC API\\Data\\MongoDbService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T10:42:04.742Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T10:42:04.742Z"
             },
             {
               "$type": "Document",
@@ -179,8 +179,7 @@
               "RelativeToolTip": "Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAuwH0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T06:48:11.572Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T06:48:11.572Z"
             }
           ]
         }
