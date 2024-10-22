@@ -23,5 +23,6 @@ namespace Assessment2_MVC_API.Models
 
         [JsonIgnore]
         public virtual Category? Category { get; set; }
+
     }
 }

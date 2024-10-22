@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assessment2 MVC API", "Assessment2 MVC API\Assessment2 MVC API.csproj", "{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assessment2 MVC UI", "Assessment2 MVC UI\Assessment2 MVC UI.csproj", "{379EB76D-9E4E-43CA-839E-8F1E5AE1D8C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assessment2 MVC UI", "Assessment2 MVC UI\Assessment2 MVC UI.csproj", "{379EB76D-9E4E-43CA-839E-8F1E5AE1D8C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
