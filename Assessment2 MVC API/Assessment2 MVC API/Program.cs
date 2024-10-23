@@ -1,14 +1,51 @@
 using Assessment2_MVC_API.Data;
 using Assessment2_MVC_API.Models;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System.Data.Common;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using AspNetCore.Identity.MongoDbCore.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container // https://youtu.be/2R4RW7WaIWQ
+BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
+BsonSerializer.RegisterSerializer(new DateTimeSerializer(MongoDB.Bson.BsonType.String));
+BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
+
+var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
+{
+    MongoDbSettings = new MongoDbSettings
+    {
+        ConnectionString = "",
+        DatabaseName = ""
+    },
+    IdentityOptionsAction = options =>
+    {
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(10);
+        options.Lock
+    
+    }
+
+}
+
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+// Add MongoDB Identity services
+
+
 
 #region LC FIXING API DOCUMENTATION WEEK 7
 builder.Services.AddApiVersioning(options =>

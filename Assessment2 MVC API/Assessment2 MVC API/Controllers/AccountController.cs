@@ -19,20 +19,21 @@ namespace Assessment2_MVC_API.Controllers
             _roleManager = roleManager;
         }
 
+        // Create Account
         public IActionResult Create()
         {
             return View();
         }
-
-        // TODO
+        
+        // Create Role
         public IActionResult CreateRole() 
         { 
-        
+             return View();
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(User user)
+        public async Task<IActionResult> CreateAccount(User user)
         {
             if (ModelState.IsValid)
             {
@@ -47,6 +48,7 @@ namespace Assessment2_MVC_API.Controllers
                 if (result.Succeeded)
                 {
                     ViewBag.Message = "User created successfully.";
+                    return RedirectToAction("Index");
                 }
                 else
                 {
@@ -57,6 +59,28 @@ namespace Assessment2_MVC_API.Controllers
                 }
             }
             return View(user);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(UserRole userRole)
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityResult result = await _roleManager.CreateAsync(new ApplicationRole() { Name = userRole.RoleName });
+                if (result.Succeeded)
+                {
+                    ViewBag.Message = "Role create successfully.";
+                }
+                else
+                {
+                    foreach(IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            return View();
         }
 
 
