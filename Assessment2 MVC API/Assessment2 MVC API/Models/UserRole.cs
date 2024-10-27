@@ -4,8 +4,6 @@
 
     public class UserRole
     {
-        public string RoleName { get; set; } 
-        //public const string Admin = "admin";
-        //public const string User = "user";
+        public string RoleName { get; set; } = string.Empty;
     }
 }

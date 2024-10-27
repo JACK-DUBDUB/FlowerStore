@@ -217,6 +217,9 @@ namespace Assessment2_MVC_API.Controllers
         // Delete user accounts
         // TODO <--
 
+        // Assign role to user accounts by Id
+        // TODO <--
+
         #endregion
     }
 }

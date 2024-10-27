@@ -83,5 +83,7 @@ namespace Assessment2_MVC_API.Data
         // Get newest product and send to DB
 
 
+        // Add user ADMIN
+
     }
 }
