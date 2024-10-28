@@ -128,7 +128,7 @@ namespace Assessment2_MVC_API.Controllers
 
         #region ADMIN ACCESS
         // Add all local seed categories
-        [Authorize]
+        //[Authorize]
         [HttpPost("admin_transfer_local_categories")]
         public async Task<IActionResult> TransferCategories()
         {
@@ -138,7 +138,7 @@ namespace Assessment2_MVC_API.Controllers
         }
 
         // Add all local seed products
-        [Authorize]
+        //[Authorize]
         [HttpPost("admin_transfer_local_products")]
         public async Task<IActionResult> TransferProducts()
         {

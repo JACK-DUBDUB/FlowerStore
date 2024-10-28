@@ -6,7 +6,8 @@ namespace Assessment2_MVC_API.Models
     public class Product
     {
         public int Id { get; set; }
-
+        [Required]
+        public int CategoryId { get; set; }
         [Required]
         public string Name { get; set; } = string.Empty;
         [Required]
@@ -18,8 +19,7 @@ namespace Assessment2_MVC_API.Models
         [Required]
         public bool IsAvailable { get; set; }
 
-        [Required]
-        public int CategoryId { get; set; }
+
 
         [JsonIgnore]
         public virtual Category? Category { get; set; }

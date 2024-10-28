@@ -1,82 +1,62 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\",
+  "WorkspaceRootPath": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\assessment2 mvc api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\assessment2 mvc api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\data\\mongodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\data\\mongodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\models\\storecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\storecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\models\\userrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\userrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\data\\localdataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\data\\localdataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\models\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\controllers\\securedcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\controllers\\securedcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\controllers\\publicstorecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\controllers\\publicstorecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\controllers\\publicstorecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\at2-mvc\\assessment2 mvc api\\assessment2 mvc api\\controllers\\storecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\data\\mongodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\data\\mongodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\data\\localdataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\data\\localdataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\models\\storecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\storecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\controllers\\datatransfercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\controllers\\datatransfercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\controllers\\storecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\controllers\\storecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{379EB76D-9E4E-43CA-839E-8F1E5AE1D8C0}|Assessment2 MVC UI\\Assessment2 MVC UI.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc ui\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{379EB76D-9E4E-43CA-839E-8F1E5AE1D8C0}|Assessment2 MVC UI\\Assessment2 MVC UI.csproj|solutionrelative:assessment2 mvc ui\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{379EB76D-9E4E-43CA-839E-8F1E5AE1D8C0}|Assessment2 MVC UI\\Assessment2 MVC UI.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc ui\\assessment2 mvc ui.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{379EB76D-9E4E-43CA-839E-8F1E5AE1D8C0}|Assessment2 MVC UI\\Assessment2 MVC UI.csproj|solutionrelative:assessment2 mvc ui\\assessment2 mvc ui.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|c:\\users\\jackd\\downloads\\at2-mvc-a092e26c140be8a7472f42cbaf58551beb89a8fc\\assessment2 mvc api\\assessment2 mvc api\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -86,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 14,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -98,250 +78,181 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.Development.json",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\appsettings.Development.json",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\appsettings.Development.json",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\appsettings.Development.json",
-              "RelativeToolTip": "Assessment2 MVC API\\appsettings.Development.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-27T05:00:45.016Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Assessment2 MVC API.http",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Assessment2 MVC API.http",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Assessment2 MVC API.http",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Assessment2 MVC API.http",
-              "RelativeToolTip": "Assessment2 MVC API\\Assessment2 MVC API.http",
+              "DocumentIndex": 4,
+              "Title": "StoreContext.cs",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\StoreContext.cs",
+              "RelativeDocumentMoniker": "Assessment2 MVC API\\Models\\StoreContext.cs",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\StoreContext.cs",
+              "RelativeToolTip": "Assessment2 MVC API\\Models\\StoreContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2024-10-27T04:59:57.508Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\appsettings.json",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\appsettings.json",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\appsettings.json",
-              "RelativeToolTip": "Assessment2 MVC API\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-27T05:00:39.376Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T13:50:53.427Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "Category.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\Category.cs",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\Category.cs",
               "RelativeDocumentMoniker": "Assessment2 MVC API\\Models\\Category.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\Category.cs",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\Category.cs",
               "RelativeToolTip": "Assessment2 MVC API\\Models\\Category.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T04:53:15.638Z",
+              "WhenOpened": "2024-10-28T13:45:47.401Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "Assessment2 MVC API\\Models\\Product.cs",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\Product.cs",
+              "RelativeToolTip": "Assessment2 MVC API\\Models\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T13:45:44.197Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "StoreContext.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\StoreContext.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Models\\StoreContext.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\StoreContext.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Models\\StoreContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T04:53:12.278Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Controllers\\UserController.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwDEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T04:28:07.014Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Product.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\Product.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Models\\Product.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\Product.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Models\\Product.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T16:14:15.248Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AppUser.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\AppUser.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Models\\AppUser.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\AppUser.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Models\\AppUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T16:10:42.914Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Models\\User.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\User.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T12:37:36.799Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "ApplicationUser.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\ApplicationUser.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Models\\ApplicationUser.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\ApplicationUser.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Models\\ApplicationUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T12:35:35.066Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "UserRole.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\UserRole.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Models\\UserRole.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\UserRole.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Models\\UserRole.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T12:21:55.156Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Controllers\\AccountController.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAwwAEAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T10:42:27.368Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\appsettings.json",
+              "RelativeDocumentMoniker": "Assessment2 MVC API\\appsettings.json",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\appsettings.json",
+              "RelativeToolTip": "Assessment2 MVC API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-28T13:34:39.014Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Program.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Program.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Program.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAADYAAAAAAAAAAAAAAA==",
+              "Title": "PublicStoreController.cs",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
+              "RelativeDocumentMoniker": "Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
+              "RelativeToolTip": "Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T15:32:40.575Z",
+              "WhenOpened": "2024-10-22T06:48:11.572Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "ApplicationRole.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\ApplicationRole.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Models\\ApplicationRole.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Models\\ApplicationRole.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Models\\ApplicationRole.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T12:35:57.576Z",
+              "DocumentIndex": 7,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "Assessment2 MVC API\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\appsettings.Development.json",
+              "RelativeToolTip": "Assessment2 MVC API\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-28T13:48:56.016Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Program.cs",
+              "RelativeDocumentMoniker": "Assessment2 MVC API\\Program.cs",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Program.cs",
+              "RelativeToolTip": "Assessment2 MVC API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T13:30:04.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "StoreController.cs",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\StoreController.cs",
+              "RelativeDocumentMoniker": "Assessment2 MVC API\\Controllers\\StoreController.cs",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\StoreController.cs",
+              "RelativeToolTip": "Assessment2 MVC API\\Controllers\\StoreController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T07:18:10.511Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
+              "Title": "Assessment2 MVC UI.csproj",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC UI\\Assessment2 MVC UI.csproj",
+              "RelativeDocumentMoniker": "Assessment2 MVC UI\\Assessment2 MVC UI.csproj",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC UI\\Assessment2 MVC UI.csproj",
+              "RelativeToolTip": "Assessment2 MVC UI\\Assessment2 MVC UI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-10-22T06:58:55.435Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DataTransferController.cs",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\DataTransferController.cs",
+              "RelativeDocumentMoniker": "Assessment2 MVC API\\Controllers\\DataTransferController.cs",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\DataTransferController.cs",
+              "RelativeToolTip": "Assessment2 MVC API\\Controllers\\DataTransferController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABoAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T06:48:22.05Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "LocalDataService.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Data\\LocalDataService.cs",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Data\\LocalDataService.cs",
               "RelativeDocumentMoniker": "Assessment2 MVC API\\Data\\LocalDataService.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Data\\LocalDataService.cs",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Data\\LocalDataService.cs",
               "RelativeToolTip": "Assessment2 MVC API\\Data\\LocalDataService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T10:42:05.438Z",
+              "WhenOpened": "2024-10-22T07:18:29.756Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "MongoDbService.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Data\\MongoDbService.cs",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Data\\MongoDbService.cs",
               "RelativeDocumentMoniker": "Assessment2 MVC API\\Data\\MongoDbService.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Data\\MongoDbService.cs",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\Data\\MongoDbService.cs",
               "RelativeToolTip": "Assessment2 MVC API\\Data\\MongoDbService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAACMAAAAAAAAAAAAIwDwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T10:42:04.742Z",
+              "WhenOpened": "2024-10-22T06:37:17.516Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "SecuredController.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\SecuredController.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Controllers\\SecuredController.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\SecuredController.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Controllers\\SecuredController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T15:32:53.222Z",
-              "EditorCaption": ""
+              "DocumentIndex": 11,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC UI\\Pages\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Assessment2 MVC UI\\Pages\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC UI\\Pages\\Account\\Login.cshtml",
+              "RelativeToolTip": "Assessment2 MVC UI\\Pages\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-22T06:31:57.445Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "StoreController.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\StoreController.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Controllers\\StoreController.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\StoreController.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Controllers\\StoreController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAARAAAAAAAAAA==",
+              "DocumentIndex": 13,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\ViewModels\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "Assessment2 MVC API\\ViewModels\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\jackd\\Downloads\\AT2-MVC-a092e26c140be8a7472f42cbaf58551beb89a8fc\\Assessment2 MVC API\\Assessment2 MVC API\\ViewModels\\LoginViewModel.cs",
+              "RelativeToolTip": "Assessment2 MVC API\\ViewModels\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T10:42:12.106Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "PublicStoreController.cs",
-              "DocumentMoniker": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
-              "RelativeDocumentMoniker": "Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
-              "ToolTip": "D:\\GitHub Clones\\AT2-MVC\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
-              "RelativeToolTip": "Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAH0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T06:48:11.572Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T03:55:18.978Z"
             }
           ]
         }

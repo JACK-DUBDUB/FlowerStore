@@ -132,7 +132,7 @@ namespace Assessment2_MVC_API.Controllers
             {
                 await _storeContext.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException ex)
+            catch (DbUpdateConcurrencyException)
             {
                 if (!_storeContext.Products.Any(p => p.Id == id))
                 {

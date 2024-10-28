@@ -1,10 +1,8 @@
 ﻿using Assessment2_MVC_API.Models;
 using MongoDB.Driver;
 
-// INFORMATION FROM:
-// https://www.youtube.com/watch?v=Gxf7zBl5Z64
-// https://www.youtube.com/watch?v=BfEjDD8mWYg
-// https://youtu.be/exXavNOqaVo
+// INFORMATION FROM:  https://www.youtube.com/watch?v=Gxf7zBl5Z64
+// AND: https://www.youtube.com/watch?v=BfEjDD8mWYg
 
 
 namespace Assessment2_MVC_API.Data
@@ -35,7 +33,7 @@ namespace Assessment2_MVC_API.Data
             return _database.GetCollection<Product>("products");
         }
 
-        // Collect all local categories and then send to DB
+        // Collect all categories and then send to DB
         public async Task InsertCategoriesAsync(List<Category> categories)
         {
             var categoryCollection = GetCategoryCollection();
@@ -57,7 +55,7 @@ namespace Assessment2_MVC_API.Data
             }
         }
 
-        // Collect all local products and send to DB
+        // Collect all products and send to DB
         public async Task InsertProductsAsync(List<Product> products)
         {
             var productCollection = GetProductCollection();
@@ -82,8 +80,6 @@ namespace Assessment2_MVC_API.Data
 
         // Get newest product and send to DB
 
-
-        // Add user ADMIN
 
     }
 }
