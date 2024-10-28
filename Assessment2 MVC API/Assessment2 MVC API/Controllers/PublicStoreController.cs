@@ -1,13 +1,12 @@
 ﻿using Assessment2_MVC_API.Data;
 using Assessment2_MVC_API.Models;
-using Assessment2_MVC_API.Models.Extensions;
 using Assessment2_MVC_API.Models.Queries;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
-using System.Reflection;
+
 
 namespace Assessment2_MVC_API.Controllers
 {
@@ -17,11 +16,14 @@ namespace Assessment2_MVC_API.Controllers
     {
         private readonly MongoDbService _mongoDbService; // create instance of mongodbservice - enables interaction with mongodb server
         private readonly LocalDataService _localDataService; // create instance of localdataservice - collects seeded data from the local store context
+        private UserManager<ApplicationUser> _userManager;
 
-        public PublicStoreController(MongoDbService mongoDbService, LocalDataService localDataService)
+
+        public PublicStoreController(MongoDbService mongoDbService, LocalDataService localDataService, UserManager<ApplicationUser> userManager)
         {
             _localDataService = localDataService;
             _mongoDbService = mongoDbService;
+            _userManager = userManager;
         }
 
         #region PUBLIC ACCESS
@@ -114,6 +116,33 @@ namespace Assessment2_MVC_API.Controllers
         /// ACCOUNTS ///
         // Create user account
         // TODO <--
+        [HttpPost("register_user")]
+        public async Task<IActionResult> Create([FromBody] User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var appUser = new ApplicationUser
+            {
+                UserName = user.UserName,
+                Email = user.Email
+            };
+
+            var result = await _userManager.CreateAsync(appUser, user.Password);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return BadRequest(ModelState);
+            }
+
+            return Ok("User created successfully");
+        }
+
 
         // Edit user account
         // TODO <--

@@ -1,13 +1,33 @@
 using Assessment2_MVC_API.Data;
 using Assessment2_MVC_API.Models;
+using Assessment2_MVC_API.Settings;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// https://www.yogihosting.com/aspnet-core-identity-mongodb/            <-- Mongo Identity Tutorial 28/10/2024 
+// https://github.com/alexandre-spieser/AspNetCore.Identity.MongoDbCore <-- important for this
+//
+// Process of how i got it to work:
+//
+// Installed:
+// - AspNetCore.Identity.MongoDbCore
+// - MongoDB.Driver.Core
+// 
+// Removed:
+// - MongoDB.Driver 3.0.0 - It came with too much shit and overwrote functions for Identity.MongoDbCore
+//
 
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
+        .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>
+        (
+            "mongodb+srv://p467103:[REDACTED-MONGO-PASS]@[REDACTED-CLUSTER]/StoreDB?retryWrites=true&w=majority", "StoreDB" //make sure the uri is correct... JESUS
+        );
+
+// Add services to the container.
 builder.Services.AddControllers();
 
 #region LC FIXING API DOCUMENTATION WEEK 7
@@ -32,15 +52,12 @@ builder.Services.AddVersionedApiExplorer(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
 
 // FORCE CHANGE API NAME HERE:
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "FlowerSales.API", Version = "v1" });
 });
-
-
 
 builder.Services.AddSingleton<MongoDbService>();
 builder.Services.AddTransient<LocalDataService>();
