@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 
 
 namespace Assessment2_MVC_API.Controllers
@@ -92,32 +94,15 @@ namespace Assessment2_MVC_API.Controllers
             // My version of a filter fuck AI
             foreach (var product in products)
             {
-                bool matchesFilter = true; 
-                
-                // Filter by Min + Max price parameter
-                if (queryParameters.MinPrice.HasValue && queryParameters.MaxPrice.HasValue) 
-                { 
-                    if (product.Price < queryParameters.MinPrice.Value || product.Price > queryParameters.MaxPrice.Value) 
-                    { 
-                        matchesFilter = false; 
-                    } 
-                } 
-                else if (queryParameters.MinPrice.HasValue) 
-                { 
-                    if (product.Price < queryParameters.MinPrice.Value) 
-                    { 
-                        matchesFilter = false; 
-                    } 
-                } 
-                else if (queryParameters.MaxPrice.HasValue) 
-                { 
-                    if (product.Price > queryParameters.MaxPrice.Value) 
-                    { 
-                        matchesFilter = false; 
-                    } 
-                } 
+                bool matchesFilter = true;
 
-                // Filter by CategoryId
+                // Filter by Min + Max price parameter
+                if ((queryParameters.MinPrice.HasValue && product.Price < queryParameters.MinPrice.Value) || (queryParameters.MaxPrice.HasValue && product.Price > queryParameters.MaxPrice.Value))
+                {
+                    matchesFilter = false;
+                }
+
+                    // Filter by CategoryId
                 if (queryParameters.CategoryId.HasValue) 
                 { 
                     if (product.CategoryId != queryParameters.CategoryId.Value) 
@@ -142,7 +127,7 @@ namespace Assessment2_MVC_API.Controllers
                 } 
             }
 
-            // Sort by type
+            // Sort by type - this required help from AI - i just wanted it more concise for this part
             if (!string.IsNullOrEmpty(queryParameters.SortBy))
             {
                 if (typeof(Product).GetProperty(queryParameters.SortBy) != null) // HAS TO BE CASE SENSITIVE
@@ -171,14 +156,31 @@ namespace Assessment2_MVC_API.Controllers
 
         [HttpGet("public_display_searched_products")]
         [AllowAnonymous]
-        public async Task<ActionResult> GetProductSearch()
+        public async Task<ActionResult> GetProductSearch([FromQuery] string searchTerm)
         {
-            var productCollection = _mongoDbService.GetProductCollection();
-            // Search 
+            try
+            {
+                if (string.IsNullOrEmpty(searchTerm))
+                {
+                    return BadRequest("Search term cannot be empty.");
+                }
 
-            return Ok();
+                var productCollection = _mongoDbService.GetProductCollection();
+
+                // Perform the search
+                var results = await productCollection.Find(product =>
+                    product.Name.ToLower().Contains(searchTerm.ToLower()))
+                    .ToListAsync();
+
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"An error occurred while searching products: {ex.Message}");
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
         }
-
 
         /// ACCOUNTS ///
         // Create user account
@@ -214,7 +216,7 @@ namespace Assessment2_MVC_API.Controllers
             return Ok("User created successfully");
         }
 
-        // Log into account - All Information from https://youtu.be/2R4RW7WaIWQ
+        // Log into account - All Information from https://youtu.be/2R4RW7WaIWQ https://www.youtube.com/watch?v=w8I32UPEvj8&t=324s
         [HttpPost("public_login")]
         [AllowAnonymous]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(LoginResponse))]
@@ -271,8 +273,6 @@ namespace Assessment2_MVC_API.Controllers
         // Edit user account - Not necessary
         // [Authorize(Policy = "RequireUserRole")]
         // Optional
-
-
 
         // Delete own user account - - Not necessary
         // [Authorize(Policy = "RequireUserRole")]
@@ -363,7 +363,6 @@ namespace Assessment2_MVC_API.Controllers
         }
 
         /// ACCOUNTS ///
-        // Delete user accounts - Not necessary
 
         // Create Role - this isnt necessary as there should only be 2 roles for this assessment
         [HttpPost("admin_create_new_role")]
@@ -421,6 +420,9 @@ namespace Assessment2_MVC_API.Controllers
 
             return Ok($"User role switched to '{newRole}' successfully.");
         }
+
+        // Delete user accounts - Not necessary
+
 
         #endregion
     }
