@@ -13,5 +13,8 @@ namespace Assessment2_MVC_API.Models
 
         [Required]
         public string Password { get; set; } = string.Empty;
+
+        // Add a shopping cart public
+        List<Product> ShoppingCart { get; set; } = new List<Product>();
     }
 }

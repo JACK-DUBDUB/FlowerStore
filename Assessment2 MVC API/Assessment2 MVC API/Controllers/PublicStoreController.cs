@@ -1,15 +1,23 @@
 ﻿using Assessment2_MVC_API.Data;
+using Assessment2_MVC_API.Dtos;
 using Assessment2_MVC_API.Models;
 using Assessment2_MVC_API.Models.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
+using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Security.Claims;
+using System.Text;
 
 
 namespace Assessment2_MVC_API.Controllers
 {
+    [Authorize(Policy = "RequireAdminRole")]
     [Route("api/[controller]")]
     [ApiController]
     public class PublicStoreController : ControllerBase
@@ -17,18 +25,26 @@ namespace Assessment2_MVC_API.Controllers
         private readonly MongoDbService _mongoDbService; // create instance of mongodbservice - enables interaction with mongodb server
         private readonly LocalDataService _localDataService; // create instance of localdataservice - collects seeded data from the local store context
         private UserManager<ApplicationUser> _userManager;
+        private RoleManager<ApplicationRole> _roleManager;
+        private SignInManager<ApplicationUser> _signInManager;
 
-
-        public PublicStoreController(MongoDbService mongoDbService, LocalDataService localDataService, UserManager<ApplicationUser> userManager)
+        public PublicStoreController(MongoDbService mongoDbService, 
+            LocalDataService localDataService, 
+            UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<ApplicationRole> roleManager)
         {
             _localDataService = localDataService;
             _mongoDbService = mongoDbService;
             _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         #region PUBLIC ACCESS
         // Collect all products
         [HttpGet("public_display_all_products")]
+        [AllowAnonymous]
         public async Task<ActionResult> GetAllProducts()
         {
             var productCollection = _mongoDbService.GetProductCollection();
@@ -55,6 +71,7 @@ namespace Assessment2_MVC_API.Controllers
 
         // Collect all categories
         [HttpGet("public_display_all_categories")]
+        [AllowAnonymous]
         public async Task<ActionResult> GetAllCategories()
         {
             var categoryCollection = _mongoDbService.GetCategoryCollection();
@@ -64,59 +81,109 @@ namespace Assessment2_MVC_API.Controllers
 
         // Search product by filter
         [HttpGet("public_display_filtered_products")]
-        public async Task<ActionResult> GetFilteredProducts([FromQuery] ProductQueryParameters queryParameters) // Yep this one is gpt'd and i don't care.
+        [AllowAnonymous]
+        public async Task<ActionResult> GetFilteredProducts([FromQuery] ProductQueryParameters queryParameters)
         {
             var productCollection = _mongoDbService.GetProductCollection();
+            var products = await productCollection.Find(_ => true).ToListAsync();
+            
+            var filteredProducts = new List<Product>();
 
-            // Build the filter
-            var filterBuilder = Builders<Product>.Filter;
-            var filters = new List<FilterDefinition<Product>>();
-
-            // Min price parameter
-            if (queryParameters.MinPrice != null)
+            // My version of a filter fuck AI
+            foreach (var product in products)
             {
-                filters.Add(filterBuilder.Gte(p => p.Price, queryParameters.MinPrice.Value));
+                bool matchesFilter = true; 
+                
+                // Filter by Min + Max price parameter
+                if (queryParameters.MinPrice.HasValue && queryParameters.MaxPrice.HasValue) 
+                { 
+                    if (product.Price < queryParameters.MinPrice.Value || product.Price > queryParameters.MaxPrice.Value) 
+                    { 
+                        matchesFilter = false; 
+                    } 
+                } 
+                else if (queryParameters.MinPrice.HasValue) 
+                { 
+                    if (product.Price < queryParameters.MinPrice.Value) 
+                    { 
+                        matchesFilter = false; 
+                    } 
+                } 
+                else if (queryParameters.MaxPrice.HasValue) 
+                { 
+                    if (product.Price > queryParameters.MaxPrice.Value) 
+                    { 
+                        matchesFilter = false; 
+                    } 
+                } 
+
+                // Filter by CategoryId
+                if (queryParameters.CategoryId.HasValue) 
+                { 
+                    if (product.CategoryId != queryParameters.CategoryId.Value) 
+                    { 
+                        matchesFilter = false; 
+                    } 
+                } 
+
+                // Filter by Name (case-insensitive)
+                if (!string.IsNullOrEmpty(queryParameters.Name)) 
+                { 
+                    if (!product.Name.Contains(queryParameters.Name, StringComparison.OrdinalIgnoreCase)) 
+                    { 
+                        matchesFilter = false; 
+                    } 
+                } 
+
+                // Add product to filtered list if all conditions are met
+                if (matchesFilter) 
+                {
+                    filteredProducts.Add(product); 
+                } 
             }
 
-            // Max price parameter
-            if (queryParameters.MaxPrice != null)
+            // Sort by type
+            if (!string.IsNullOrEmpty(queryParameters.SortBy))
             {
-                filters.Add(filterBuilder.Lte(p => p.Price, queryParameters.MaxPrice.Value));
+                if (typeof(Product).GetProperty(queryParameters.SortBy) != null) // HAS TO BE CASE SENSITIVE
+                {
+                    {
+                        if (queryParameters.SortOrder.ToLower() == "desc") // Descending order
+                        {
+                            filteredProducts = filteredProducts.OrderByDescending(p => typeof(Product).GetProperty(queryParameters.SortBy).GetValue(p)).ToList();
+                        }
+                        else if (queryParameters.SortOrder.ToLower() == "asc") // Ascending order  
+                        {
+                            filteredProducts = filteredProducts.OrderBy(p => typeof(Product).GetProperty(queryParameters.SortBy).GetValue(p)).ToList();
+                        }
+                    }
+                }
             }
 
-            // Filter by CategoryId
-            if (queryParameters.CategoryId != null)
+            // If there are no products then return bad
+            if (filteredProducts.Count == 0)
             {
-                filters.Add(filterBuilder.Eq(p => p.CategoryId, queryParameters.CategoryId.Value));
+                return NotFound("No products found matching the criteria.");
             }
 
-            // Search by SearchTerm
-            if (!string.IsNullOrEmpty(queryParameters.Name))
-            {
-                filters.Add(filterBuilder.Regex(p => p.Name, new MongoDB.Bson.BsonRegularExpression(queryParameters.Name, "i")));
-            }
-
-            // Combine all filters
-            var combinedFilter = filters.Count > 0 ? filterBuilder.And(filters) : FilterDefinition<Product>.Empty;
-
-            // Sort results by desc/asc orders
-            var sortBuilder = Builders<Product>.Sort;
-            var sort = queryParameters.SortOrder.ToLower() == "desc" ? sortBuilder.Descending(queryParameters.SortBy) : sortBuilder.Ascending(queryParameters.SortBy);
-
-            // Fetch filtered and sorted results with pagination
-            var products = await productCollection.Find(combinedFilter)
-                                                  .Sort(sort)
-                                                  .Skip(queryParameters.Size * (queryParameters.Page - 1))
-                                                  .Limit(queryParameters.Size)
-                                                  .ToListAsync();
-
-            return Ok(products);
+            return Ok(filteredProducts);
         }
+
+        [HttpGet("public_display_searched_products")]
+        [AllowAnonymous]
+        public async Task<ActionResult> GetProductSearch()
+        {
+            var productCollection = _mongoDbService.GetProductCollection();
+            // Search 
+
+            return Ok();
+        }
+
 
         /// ACCOUNTS ///
         // Create user account
-        // TODO <--
-        [HttpPost("register_user")]
+        [HttpPost("public_register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] User user)
         {
             if (!ModelState.IsValid)
@@ -139,25 +206,82 @@ namespace Assessment2_MVC_API.Controllers
                 }
                 return BadRequest(ModelState);
             }
+            else
+            {
+                await _userManager.AddToRoleAsync(appUser, "User"); // Assign default role to newly registered account
+            }
 
             return Ok("User created successfully");
         }
 
+        // Log into account - All Information from https://youtu.be/2R4RW7WaIWQ
+        [HttpPost("public_login")]
+        [AllowAnonymous]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(LoginResponse))]
+        public async Task<IActionResult> Login([FromBody] Dtos.LoginRequest request)
+        {
+            var result = await LoginAsync(request);
+            if (result.Success) { return new JsonResult(result) { StatusCode = (int)HttpStatusCode.OK }; }
+            return new JsonResult(result.Message) { StatusCode = (int)HttpStatusCode.BadRequest };
+        }
 
-        // Edit user account
-        // TODO <--
+        private async Task<LoginResponse> LoginAsync(Dtos.LoginRequest request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user is null) return new LoginResponse { Message = "Invalid email.", Success = false }; // Ideally i give a vague response but this helps me by knowing what went wrong in swagger
 
-        // Log into account
-        // TODO <--
+            var result = await _signInManager.PasswordSignInAsync(user, request.Password, isPersistent: false, lockoutOnFailure: false);
+            if (!result.Succeeded) return new LoginResponse { Message = "Invalid password.", Success = false };
 
-        // Delete own account
-        // TODO <--
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            };
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x));
+            claims.AddRange(roleClaims);
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("[REDACTED-TEST-KEY]"));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddMinutes(60);
+
+            var token = new JwtSecurityToken(
+                issuer: "https://localhost:5182",
+                audience: "https://localhost:5182",
+                claims: claims,
+                expires: expires,
+                signingCredentials: creds
+
+                );
+
+            return new LoginResponse
+            {
+                AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
+                Message = "Login Successful",
+                Email = user?.Email,
+                Success = true,
+                ExpiresIn = (int)(token.ValidTo - DateTime.UtcNow).TotalSeconds // Calculate the remaining time in seconds - I gpt'd that line because i had no idea how to convert.
+            };
+        }
+
+        // Edit user account - Not necessary
+        // [Authorize(Policy = "RequireUserRole")]
+        // Optional
+
+
+
+        // Delete own user account - - Not necessary
+        // [Authorize(Policy = "RequireUserRole")]
+        // Optional
 
         #endregion
 
-        #region ADMIN ACCESS
+        #region ADMIN ACCESS ONLY
         // Add all local seed categories
-        //[Authorize]
         [HttpPost("admin_transfer_local_categories")]
         public async Task<IActionResult> TransferCategories()
         {
@@ -167,7 +291,6 @@ namespace Assessment2_MVC_API.Controllers
         }
 
         // Add all local seed products
-        //[Authorize]
         [HttpPost("admin_transfer_local_products")]
         public async Task<IActionResult> TransferProducts()
         {
@@ -178,7 +301,6 @@ namespace Assessment2_MVC_API.Controllers
         }
 
         // Add new product to DB
-        [Authorize]
         [HttpPost("admin_add_product")]
         public async Task<IActionResult> AddProduct([FromBody] Product newProduct)
         {
@@ -202,7 +324,6 @@ namespace Assessment2_MVC_API.Controllers
         }
 
         // Edit selected product by index
-        [Authorize]
         [HttpPut("admin_update_product/{id}")]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] Product updatedProduct)
         {
@@ -225,7 +346,6 @@ namespace Assessment2_MVC_API.Controllers
         }
 
         // Delete selected product by index
-        [Authorize]
         [HttpDelete("admin_delete_product/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
@@ -243,11 +363,64 @@ namespace Assessment2_MVC_API.Controllers
         }
 
         /// ACCOUNTS ///
-        // Delete user accounts
-        // TODO <--
+        // Delete user accounts - Not necessary
+
+        // Create Role - this isnt necessary as there should only be 2 roles for this assessment
+        [HttpPost("admin_create_new_role")]
+        public async Task<IActionResult> CreateRole([Required] string name)
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityResult result = await _roleManager.CreateAsync(new ApplicationRole() { Name = name });
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    return BadRequest(ModelState);
+                }
+            }
+            return Ok("Role Created Successfully");
+        }
+
 
         // Assign role to user accounts by Id
-        // TODO <--
+        [HttpPost("admin_switch_user_role")]
+        public async Task<IActionResult> AssignNewRole([Required] string email, [Required] string newRole)
+        {
+            // Check if account exists
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Check if the role exists
+            if (!await _roleManager.RoleExistsAsync(newRole)) 
+            { 
+                return BadRequest("Role does not exist."); 
+            }
+
+            var currentRoles = await _userManager.GetRolesAsync(user); // get current role from user
+
+            if (currentRoles.Count > 0) // if the user has a current role
+            {
+                var removeRolesResult = await _userManager.RemoveFromRolesAsync(user, currentRoles); // Remove current roles from user 
+                if (!removeRolesResult.Succeeded) 
+                { 
+                    return BadRequest("Failed to remove user from current roles."); 
+                }
+            }
+
+            var addRoleResult = await _userManager.AddToRoleAsync(user, newRole); // Add new role to user 
+            if (!addRoleResult.Succeeded) 
+            { 
+                return BadRequest("Failed to assign new role to user."); 
+            }
+
+            return Ok($"User role switched to '{newRole}' successfully.");
+        }
 
         #endregion
     }

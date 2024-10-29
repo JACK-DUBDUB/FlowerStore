@@ -1,9 +1,12 @@
 using Assessment2_MVC_API.Data;
 using Assessment2_MVC_API.Models;
 using Assessment2_MVC_API.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,8 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Process of how i got it to work:
 //
 // Installed:
-// - AspNetCore.Identity.MongoDbCore
-// - MongoDB.Driver.Core
+// - AspNetCore.Identity.MongoDbCore - Just this
 // 
 // Removed:
 // - MongoDB.Driver 3.0.0 - It came with too much shit and overwrote functions for Identity.MongoDbCore
@@ -56,7 +58,33 @@ builder.Services.AddEndpointsApiExplorer();
 // FORCE CHANGE API NAME HERE:
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "FlowerSales.API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "FlowerSales.API", 
+        Version = "v1" 
+    });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme 
+    { In = ParameterLocation.Header, 
+        Description = "Please enter into field the word 'Bearer' followed by a space and the JWT token", 
+        Name = "Authorization", 
+        Type = SecuritySchemeType.ApiKey, 
+        Scheme = "Bearer" 
+    }); 
+    
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement() 
+    { 
+        { 
+            new OpenApiSecurityScheme 
+            { 
+                Reference = new OpenApiReference 
+                { Type = ReferenceType.SecurityScheme, 
+                    Id = JwtBearerDefaults.AuthenticationScheme
+                }
+            }, 
+            new List<string>() 
+        } 
+    });
 });
 
 builder.Services.AddSingleton<MongoDbService>();
@@ -67,6 +95,31 @@ builder.Services.AddDbContext<StoreContext>(options =>
     options.UseInMemoryDatabase("Store");
 });
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = builder.Configuration["JwtConfig:Issuer"],
+        ValidAudience = builder.Configuration["JwtConfig:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:Key"]!)),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true
+    };
+});
+builder.Services.AddAuthorization(options =>
+{ 
+    options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin")); 
+    options.AddPolicy("RequireUserRole", policy => policy.RequireRole("User")); 
+});
 
 // ENABLE CORS <--
 builder.Services.AddCors(options =>
