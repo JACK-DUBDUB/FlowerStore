@@ -16,13 +16,66 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 
+// CURRENT MONGO SERVER PASSWORD: [REDACTED-MONGO-PASS]
 
 namespace Assessment2_MVC_API.Controllers
 {
-    [Authorize(Policy = "RequireAdminRole")]
-    [Route("api/[controller]")]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class PublicStoreController : ControllerBase
+    public class PublicStoreControllerV2 : ControllerBase
+    {
+        private readonly MongoDbService _mongoDbService; // create instance of mongodbservice - enables interaction with mongodb server
+        private readonly LocalDataService _localDataService; // create instance of localdataservice - collects seeded data from the local store context
+
+        public PublicStoreControllerV2(MongoDbService mongoDbService,
+           LocalDataService localDataService)
+        {
+            _localDataService = localDataService;
+            _mongoDbService = mongoDbService;
+        }
+
+        [HttpGet("public_display_all_products")]
+        [AllowAnonymous]
+        public async Task<ActionResult> GetAllProducts()
+        {
+            var productCollection = _mongoDbService.GetProductCollection();
+            // var categoryCollection = _mongoDbService.GetCategoryCollection(); // <--
+
+            var products = await productCollection.Find(_ => true).ToListAsync();
+            //var categories = await categoryCollection.Find(_ => true).ToListAsync(); // <--
+
+            var p = new List<Product>();
+
+            foreach (var item in products)
+            {
+                if (item.IsAvailable == true)
+                {
+                    p.Add(item);
+                }
+            }
+
+            var productDisplay = p.Select(product => new
+            {
+                product.Id,
+                product.Name,
+                product.StoreLocation,
+                product.PostCode,
+                product.Price,
+                product.IsAvailable,
+                product.CategoryId,
+                //CategoryName = categories.FirstOrDefault(c => c.Id == product.CategoryId)?.Name // i can get rid of this but the above needs to go
+            }).ToList();
+
+            return Ok(productDisplay);
+        }
+    }
+
+    [Authorize(Policy = "RequireAdminRole")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiController]
+    public class PublicStoreControllerV1 : ControllerBase
     {
         private readonly MongoDbService _mongoDbService; // create instance of mongodbservice - enables interaction with mongodb server
         private readonly LocalDataService _localDataService; // create instance of localdataservice - collects seeded data from the local store context
@@ -30,7 +83,7 @@ namespace Assessment2_MVC_API.Controllers
         private RoleManager<ApplicationRole> _roleManager;
         private SignInManager<ApplicationUser> _signInManager;
 
-        public PublicStoreController(MongoDbService mongoDbService, 
+        public PublicStoreControllerV1(MongoDbService mongoDbService, 
             LocalDataService localDataService, 
             UserManager<ApplicationUser> userManager, 
             SignInManager<ApplicationUser> signInManager,
@@ -50,10 +103,10 @@ namespace Assessment2_MVC_API.Controllers
         public async Task<ActionResult> GetAllProducts()
         {
             var productCollection = _mongoDbService.GetProductCollection();
-            var categoryCollection = _mongoDbService.GetCategoryCollection(); // <--
+            //var categoryCollection = _mongoDbService.GetCategoryCollection(); // <--
 
             var products = await productCollection.Find(_ => true).ToListAsync();
-            var categories = await categoryCollection.Find(_ => true).ToListAsync(); // <--
+            //var categories = await categoryCollection.Find(_ => true).ToListAsync(); // <--
 
             var productDisplay = products.Select(product => new
             {
@@ -66,9 +119,7 @@ namespace Assessment2_MVC_API.Controllers
                 product.CategoryId,
                 //CategoryName = categories.FirstOrDefault(c => c.Id == product.CategoryId)?.Name // i can get rid of this but the above needs to go
             }).ToList();
-
             return Ok(productDisplay);
-
         }
 
         // Collect all categories

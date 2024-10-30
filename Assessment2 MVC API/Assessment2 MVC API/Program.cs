@@ -41,6 +41,8 @@ builder.Services.AddApiVersioning(options =>
 
     options.ApiVersionReader = new QueryStringApiVersionReader("FlowerStore-API-Version");
 
+
+
    // options.ApiVersionReader = new HeaderApiVersionReader("X-API-Version");
 });
 
@@ -63,6 +65,14 @@ builder.Services.AddSwaggerGen(c =>
         Title = "FlowerSales.API", 
         Version = "v1" 
     });
+
+    c.SwaggerDoc("v2", new OpenApiInfo 
+    { 
+        Title = "FlowerSales.API",
+        Version = "v2" 
+    });
+
+
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme 
     { In = ParameterLocation.Header, 
