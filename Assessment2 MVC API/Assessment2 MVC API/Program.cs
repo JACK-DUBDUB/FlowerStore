@@ -1,6 +1,5 @@
 using Assessment2_MVC_API.Data;
 using Assessment2_MVC_API.Models;
-using Assessment2_MVC_API.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
@@ -137,7 +136,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(builder =>
     {
         builder
-            .WithOrigins("https://localhost:7165")
+            .WithOrigins("https://localhost:7272") // <-- important needs to match the web app
             .WithHeaders("FlowerStore-API-Version");
     });
 });
