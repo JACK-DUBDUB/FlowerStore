@@ -1,31 +1,72 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<div class="padded-div">
+    <h2>Store Products</h2>
+</div>
 
-<!-- Display ALL PRODUCTS-->
-<ul id="products-list"></ul>
 
-@section Scripts {
+<!-- Display ALL PRODUCTS -->
+<table id="products-table"class="table table-striped" style="border: 1px solid black; width: 100%;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid black;">Product Name</th>
+            <th style="border: 1px solid black;">Category</th>
+            <th style="border: 1px solid black;">Price</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section Scripts { 
     <script>
-        let url = "https://localhost:7209/api/v1/PublicStoreControllerV/public_display_all_products"; // <-- this needs to match - use swagger if you need to check the url link
-        let productsList = document.getElementById("products-list"); // <-- send to unordered dot point list
+        // Because i do not know JS at all and Milan used it for just this section, i have used AI to help me create this.
+        let url1 = "https://localhost:7209/api/v1/PublicStoreControllerV/public_display_all_products"; // <-- this needs to match - use swagger if you need to check the url link
+        let url2 = "https://localhost:7209/api/v1/PublicStoreControllerV/public_display_all_categories"; // <-- same as here
+        let productsTable = document.getElementById("products-table").getElementsByTagName('tbody')[0]; // <-- Target the tbody of the table
 
-        fetch(url) // <-- Query a response from the url - if it didn't connect then display error - read console to find error 
+        // Fetch categories first
+        fetch(url2)
             .then(response => response.json())
-            .then(data => showProducts(data))
+            .then(categories => fetchProducts(categories))
             .catch(ex => {
-                alert("Error!");
+                alert("Error fetching categories!");
                 console.error(ex);
             });
 
-        function showProducts(products) {
+        function fetchProducts(categories) {
+            fetch(url1)
+                .then(response => response.json())
+                .then(products => showProducts(products, categories))
+                .catch(ex => {
+                    alert("Error fetching products!");
+                    console.error(ex);
+                });
+        }
+
+        function showProducts(products, categories) {
             products.forEach(product => {
-                let li = document.createElement("li");
-                let text = `${product.name} (\$${product.price})`; // <-- Display list item as text
-                li.appendChild(
-                    document.createTextNode(text));
-                productsList.appendChild(li);
+                let row = productsTable.insertRow();
+                row.style.border = "1px solid black"; // Add border to each row
+
+                let nameCell = row.insertCell(0);
+                let categoryCell = row.insertCell(1);
+                let priceCell = row.insertCell(2);
+
+                nameCell.style.border = "1px solid black"; // Add border to each cell
+                categoryCell.style.border = "1px solid black"; // Add border to each cell
+                priceCell.style.border = "1px solid black"; // Add border to each cell
+
+                nameCell.innerHTML = product.name;
+
+                // Find category by product's categoryId
+                let category = categories.find(cat => cat.id === product.categoryId);
+                categoryCell.innerHTML = category ? category.name : "Unknown";
+
+                priceCell.innerHTML = `$${product.price.toFixed(2)}`; // Format the price to 2 decimal places
             });
         }
     </script>
 }
+
+
