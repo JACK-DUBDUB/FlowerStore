@@ -39,12 +39,8 @@ builder.Services.AddApiVersioning(options =>
     options.AssumeDefaultVersionWhenUnspecified = true;
 
     options.ApiVersionReader = new QueryStringApiVersionReader("FlowerStore-API-Version");
-
-
-
-   // options.ApiVersionReader = new HeaderApiVersionReader("X-API-Version");
+    //options.ApiVersionReader = new HeaderApiVersionReader("X-API-Version"); // fuck this one
 });
-
 builder.Services.AddVersionedApiExplorer(options =>
 { 
     // declare version number
@@ -72,7 +68,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 
 
-
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme 
     { In = ParameterLocation.Header, 
         Description = "Please enter into field the word 'Bearer' followed by a space and the JWT token", 
@@ -95,6 +90,25 @@ builder.Services.AddSwaggerGen(c =>
         } 
     });
 });
+
+// Dependency Injections variants: //
+// 1. Singleton
+// Singleton service is created once and reused for the entire liftime of an application
+// Same instance will be injected into every dependent class through the application.
+// This makes it suitable for stateless services that hold shared state across the application.
+
+// 2. Transient
+// Transient service is created each time it is requested.
+// It is not reused and is disposed of after the request is completed
+// Transient services are suitable for lightweight, stateless services
+// Where a new instance is needed for every request or operation.
+
+// 3. Scoped
+// A Scoped service is created once per request.
+// It remains the same within a single request but differs across different requests.
+// The service is disposed of when the request is completed.
+// This makes it suitable for services that need to maintain a state across
+// multiple operations within a single request.
 
 builder.Services.AddSingleton<MongoDbService>();
 builder.Services.AddTransient<LocalDataService>();

@@ -26,12 +26,9 @@ namespace Assessment2_MVC_API.Controllers
     public class PublicStoreControllerV2 : ControllerBase
     {
         private readonly MongoDbService _mongoDbService; // create instance of mongodbservice - enables interaction with mongodb server
-        private readonly LocalDataService _localDataService; // create instance of localdataservice - collects seeded data from the local store context
 
-        public PublicStoreControllerV2(MongoDbService mongoDbService,
-           LocalDataService localDataService)
+        public PublicStoreControllerV2(MongoDbService mongoDbService)
         {
-            _localDataService = localDataService;
             _mongoDbService = mongoDbService;
         }
 
@@ -39,6 +36,51 @@ namespace Assessment2_MVC_API.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> GetAllProducts()
         {
+            var productCollection = _mongoDbService.GetProductCollection();
+            // var categoryCollection = _mongoDbService.GetCategoryCollection(); // <--
+
+            var products = await productCollection.Find(_ => true).ToListAsync();
+            //var categories = await categoryCollection.Find(_ => true).ToListAsync(); // <--
+
+            var p = new List<Product>();
+
+            foreach (var item in products)
+            {
+                if (item.IsAvailable == true)
+                {
+                    p.Add(item);
+                }
+            }
+
+            var productDisplay = p.Select(product => new
+            {
+                product.Id,
+                product.Name,
+                product.StoreLocation,
+                product.PostCode,
+                product.Price,
+                product.IsAvailable,
+                product.CategoryId,
+                //CategoryName = categories.FirstOrDefault(c => c.Id == product.CategoryId)?.Name // i can get rid of this but the above needs to go
+            }).ToList();
+
+            return Ok(productDisplay);
+        }
+
+        // This one is only for the header
+        [HttpGet("public_display_all_products2")]
+        [AllowAnonymous]
+        public async Task<ActionResult> GetAllProducts2()
+        {
+            // check api version from the headers
+            /* HEADER ONLY CHECK
+            string apiVersion = Request.Headers["X-API-Version"].FirstOrDefault();
+            if (string.IsNullOrEmpty(apiVersion)) 
+            { 
+                return BadRequest("API version not specified."); 
+            }
+            */
+
             var productCollection = _mongoDbService.GetProductCollection();
             // var categoryCollection = _mongoDbService.GetCategoryCollection(); // <--
 
@@ -267,7 +309,7 @@ namespace Assessment2_MVC_API.Controllers
             return Ok("User created successfully");
         }
 
-        // Log into account - All Information from https://youtu.be/2R4RW7WaIWQ https://www.youtube.com/watch?v=w8I32UPEvj8&t=324s
+        // Log into account - All Information from: https://youtu.be/2R4RW7WaIWQ https://www.youtube.com/watch?v=w8I32UPEvj8&t=324s
         [HttpPost("public_login")]
         [AllowAnonymous]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(LoginResponse))]
