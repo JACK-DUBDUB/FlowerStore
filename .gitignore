@@ -1,0 +1,8 @@
+# Secrets - DO NOT COMMIT THESE
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+!appsettings.example.json
+.env
+.env.*
+*.user

@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Assessment2_MVC_Web</RootNamespace>
+    <UserSecretsId>4027c382-5993-488a-b861-11eb18540900</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

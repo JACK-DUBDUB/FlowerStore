@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Assessment2_MVC_API</RootNamespace>
+    <UserSecretsId>7749ee5a-7c0d-41f1-8bf9-29e4402b71f4</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

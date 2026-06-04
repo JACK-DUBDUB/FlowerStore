@@ -37,10 +37,8 @@ namespace Assessment2_MVC_API.Controllers
         public async Task<ActionResult> GetAllProducts()
         {
             var productCollection = _mongoDbService.GetProductCollection();
-            // var categoryCollection = _mongoDbService.GetCategoryCollection(); // <--
 
             var products = await productCollection.Find(_ => true).ToListAsync();
-            //var categories = await categoryCollection.Find(_ => true).ToListAsync(); // <--
 
             var p = new List<Product>();
 
@@ -61,7 +59,6 @@ namespace Assessment2_MVC_API.Controllers
                 product.Price,
                 product.IsAvailable,
                 product.CategoryId,
-                //CategoryName = categories.FirstOrDefault(c => c.Id == product.CategoryId)?.Name // i can get rid of this but the above needs to go
             }).ToList();
 
             return Ok(productDisplay);
@@ -72,20 +69,10 @@ namespace Assessment2_MVC_API.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> GetAllProducts2()
         {
-            // check api version from the headers
-            /* HEADER ONLY CHECK
-            string apiVersion = Request.Headers["X-API-Version"].FirstOrDefault();
-            if (string.IsNullOrEmpty(apiVersion)) 
-            { 
-                return BadRequest("API version not specified."); 
-            }
-            */
 
             var productCollection = _mongoDbService.GetProductCollection();
-            // var categoryCollection = _mongoDbService.GetCategoryCollection(); // <--
 
             var products = await productCollection.Find(_ => true).ToListAsync();
-            //var categories = await categoryCollection.Find(_ => true).ToListAsync(); // <--
 
             var p = new List<Product>();
 
@@ -117,6 +104,7 @@ namespace Assessment2_MVC_API.Controllers
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+
     public class PublicStoreControllerV1 : ControllerBase
     {
         private readonly MongoDbService _mongoDbService; // create instance of mongodbservice - enables interaction with mongodb server
@@ -124,18 +112,21 @@ namespace Assessment2_MVC_API.Controllers
         private UserManager<ApplicationUser> _userManager;
         private RoleManager<ApplicationRole> _roleManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private readonly IConfiguration _config;
 
         public PublicStoreControllerV1(MongoDbService mongoDbService, 
             LocalDataService localDataService, 
             UserManager<ApplicationUser> userManager, 
             SignInManager<ApplicationUser> signInManager,
-            RoleManager<ApplicationRole> roleManager)
+            RoleManager<ApplicationRole> roleManager,
+            IConfiguration config)
         {
             _localDataService = localDataService;
             _mongoDbService = mongoDbService;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _config = config;
         }
 
         #region PUBLIC ACCESS
@@ -195,7 +186,7 @@ namespace Assessment2_MVC_API.Controllers
                     matchesFilter = false;
                 }
 
-                    // Filter by CategoryId
+                 // Filter by CategoryId
                 if (queryParameters.CategoryId.HasValue) 
                 { 
                     if (product.CategoryId != queryParameters.CategoryId.Value) 
@@ -340,18 +331,17 @@ namespace Assessment2_MVC_API.Controllers
             var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x));
             claims.AddRange(roleClaims);
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("[REDACTED-TEST-KEY]"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtConfig:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.Now.AddMinutes(60);
 
             var token = new JwtSecurityToken(
-                issuer: "https://localhost:5182",
-                audience: "https://localhost:5182",
+                issuer: _config["JwtConfig:Issuer"],
+                audience: _config["JwtConfig:Audience"],
                 claims: claims,
                 expires: expires,
                 signingCredentials: creds
-
-                );
+            );
 
             return new LoginResponse
             {

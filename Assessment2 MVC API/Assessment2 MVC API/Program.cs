@@ -1,4 +1,4 @@
-using Assessment2_MVC_API.Data;
+﻿using Assessment2_MVC_API.Data;
 using Assessment2_MVC_API.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -9,6 +9,13 @@ using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+Console.WriteLine("=== CONFIG DEBUG ===");
+Console.WriteLine($"Environment: {builder.Environment.EnvironmentName}");
+Console.WriteLine($"JWT Key loaded: {!string.IsNullOrEmpty(builder.Configuration["JwtConfig:Key"])}");
+Console.WriteLine($"Mongo Connection loaded: {!string.IsNullOrEmpty(builder.Configuration.GetConnectionString("DbConnection"))}");
+Console.WriteLine("=====================");
+
 
 // https://www.yogihosting.com/aspnet-core-identity-mongodb/            <-- Mongo Identity Tutorial 28/10/2024 
 // https://github.com/alexandre-spieser/AspNetCore.Identity.MongoDbCore <-- important for this
@@ -22,11 +29,21 @@ var builder = WebApplication.CreateBuilder(args);
 // - MongoDB.Driver 3.0.0 - It came with too much shit and overwrote functions for Identity.MongoDbCore
 //
 
+// Load MongoDB connection string from configuration (User Secrets / Environment Variables)
+var mongoConnectionString = builder.Configuration.GetConnectionString("DbConnection");
+
+if (string.IsNullOrEmpty(mongoConnectionString))
+{
+    throw new InvalidOperationException(
+        "MongoDB connection string 'ConnectionStrings:DbConnection' is missing.\n" +
+        "Please set it using User Secrets (recommended for development) or environment variables.");
+}
+
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
-        .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>
-        (
-            "mongodb+srv://p467103:[REDACTED-MONGO-PASS]@[REDACTED-CLUSTER]/StoreDB?retryWrites=true&w=majority", "StoreDB" //make sure the uri is correct... JESUS
-        );
+    .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>(
+        mongoConnectionString,
+        "StoreDB"                    // ← Your database name
+    );
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -38,8 +55,7 @@ builder.Services.AddApiVersioning(options =>
     options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
     options.AssumeDefaultVersionWhenUnspecified = true;
 
-    options.ApiVersionReader = new QueryStringApiVersionReader("FlowerStore-API-Version");
-    //options.ApiVersionReader = new HeaderApiVersionReader("X-API-Version"); // fuck this one
+    options.ApiVersionReader = new QueryStringApiVersionReader("FlowerStore-API-Version"); // <- Necessary
 });
 builder.Services.AddVersionedApiExplorer(options =>
 { 
@@ -177,5 +193,11 @@ app.UseAuthorization();
 app.UseCors(); // cors <--
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
+    context.Database.EnsureCreated();   // This is important for In-Memory DB
+}
 
 app.Run();

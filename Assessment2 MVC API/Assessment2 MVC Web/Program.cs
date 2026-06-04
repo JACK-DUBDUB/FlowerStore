@@ -1,4 +1,4 @@
-using Assessment2_MVC_Web.Models;
+﻿using Assessment2_MVC_Web.Models;
 
 // Followed tutorial here at: https://www.yogihosting.com/aspnet-core-identity-mongodb/
 
@@ -8,11 +8,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Load MongoDB connection string from configuration (User Secrets / Environment Variables)
+var mongoConnectionString = builder.Configuration.GetConnectionString("DbConnection");
+
+if (string.IsNullOrEmpty(mongoConnectionString))
+{
+    throw new InvalidOperationException(
+        "MongoDB connection string 'ConnectionStrings:DbConnection' is missing.\n" +
+        "Please set it using User Secrets (recommended for development) or environment variables.");
+}
+
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
-        .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>
-        (
-            "mongodb+srv://p467103:[REDACTED-MONGO-PASS]@[REDACTED-CLUSTER]/StoreDB?retryWrites=true&w=majority", "StoreDB" //make sure the uri is correct... JESUS
-        );
+    .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>(
+        mongoConnectionString,
+        "StoreDB"                    // ← Your database name
+    );
 
 var app = builder.Build();
 
