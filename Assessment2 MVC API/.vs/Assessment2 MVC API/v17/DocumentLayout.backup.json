@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{881D16F8-3FD7-410F-96E9-FCDF6E6DDBF4}|Assessment2 MVC Web\\Assessment2 MVC Web.csproj|solutionrelative:assessment2 mvc web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\mongodb_mvc_api-to-ui\\assessment2 mvc api\\assessment2 mvc api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\mongodb_mvc_api-to-ui\\assessment2 mvc api\\assessment2 mvc api\\controllers\\publicstorecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\controllers\\publicstorecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\mongodb_mvc_api-to-ui\\assessment2 mvc api\\assessment2 mvc api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|solutionrelative:assessment2 mvc api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9A2D2B47-1112-4F7B-A2C0-FC98E75A1C24}|Assessment2 MVC API\\Assessment2 MVC API.csproj|d:\\github clones\\mongodb_mvc_api-to-ui\\assessment2 mvc api\\assessment2 mvc api\\controllers\\storecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,7 +50,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\GitHub Clones\\MongoDB_MVC_API-TO-UI\\Assessment2 MVC API\\Assessment2 MVC API\\Program.cs",
               "RelativeDocumentMoniker": "Assessment2 MVC API\\Program.cs",
@@ -58,18 +58,17 @@
               "RelativeToolTip": "Assessment2 MVC API\\Program.cs",
               "ViewState": "AgIAALEAAAAAAAAAAAAAAMgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T11:32:27.24Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T11:32:27.24Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "PublicStoreController.cs",
               "DocumentMoniker": "D:\\GitHub Clones\\MongoDB_MVC_API-TO-UI\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
               "RelativeDocumentMoniker": "Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
               "ToolTip": "D:\\GitHub Clones\\MongoDB_MVC_API-TO-UI\\Assessment2 MVC API\\Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
               "RelativeToolTip": "Assessment2 MVC API\\Controllers\\PublicStoreController.cs",
-              "ViewState": "AgIAAGABAAAAAAAAAAAAAG4BAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAMcBAAAAAAAAAAAcwNUBAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-04T11:28:56.944Z"
             },
