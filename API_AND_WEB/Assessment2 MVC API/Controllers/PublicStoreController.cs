@@ -7,14 +7,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
-using System.Text.RegularExpressions;
 
 // CURRENT MONGO SERVER PASSWORD: [REDACTED-MONGO-PASS]
 
@@ -219,11 +217,11 @@ namespace Assessment2_MVC_API.Controllers
                     {
                         if (queryParameters.SortOrder.ToLower() == "desc") // Descending order
                         {
-                            filteredProducts = filteredProducts.OrderByDescending(p => typeof(Product).GetProperty(queryParameters.SortBy).GetValue(p)).ToList();
+                            filteredProducts = filteredProducts.OrderByDescending(p => typeof(Product).GetProperty(queryParameters.SortBy)?.GetValue(p)).ToList();
                         }
                         else if (queryParameters.SortOrder.ToLower() == "asc") // Ascending order  
                         {
-                            filteredProducts = filteredProducts.OrderBy(p => typeof(Product).GetProperty(queryParameters.SortBy).GetValue(p)).ToList();
+                            filteredProducts = filteredProducts.OrderBy(p => typeof(Product).GetProperty(queryParameters.SortBy)?.GetValue(p)).ToList();
                         }
                     }
                 }

@@ -3,8 +3,6 @@ using MongoDB.Driver;
 
 // INFORMATION FROM:  https://www.youtube.com/watch?v=Gxf7zBl5Z64
 // AND: https://www.youtube.com/watch?v=BfEjDD8mWYg
-
-
 namespace Assessment2_MVC_API.Data
 {
     public class MongoDbService

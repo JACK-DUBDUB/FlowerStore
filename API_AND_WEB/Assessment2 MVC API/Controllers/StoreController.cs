@@ -2,7 +2,6 @@
 using Assessment2_MVC_API.Models.Extensions;
 using Assessment2_MVC_API.Models.Queries;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
