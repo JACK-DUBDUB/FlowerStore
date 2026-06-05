@@ -127,7 +127,7 @@ function getProductEmoji(product, categoryName = '') {
     const name = (product.name || '').toLowerCase();
     const cat = (categoryName || '').toLowerCase();
     if (name.includes('rose') || cat.includes('bouquet')) return '🌹';
-    if (name.includes('lily') || cat.includes('box')) return '🪷';
+    if (name.includes('lily') || cat.includes('box')) return '🎁';
     if (name.includes('tulip') || name.includes('crocus')) return '🌷';
     if (name.includes('orchid')) return '🌺';
     if (name.includes('daisy') || name.includes('gerbera')) return '🌼';

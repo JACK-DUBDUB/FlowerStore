@@ -122,6 +122,12 @@ a:hover { color: var(--accent); }
   border-bottom: 1px solid var(--border);
   padding-top: .6rem;
   padding-bottom: .6rem;
+  z-index: 1030 !important; /* ensure dropdowns and nav are above page content like sticky cards */
+}
+
+/* Ensure user dropdown (and any) menus appear above sticky page cards like the order summary */
+.dropdown-menu {
+  z-index: 1055 !important;
 }
 .navbar-brand {
   font-weight: 700;
@@ -412,6 +418,7 @@ a:hover { color: var(--accent); }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.5rem;
+  z-index: 1; /* keep content cards below navbar (1030) and dropdowns so they don't overlap header or user menu */
 }
 .order-row {
   background: var(--surface-2);
