@@ -1,0 +1,256 @@
+@{
+    ViewData["Title"] = "Your Cart";
+}
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h2 class="mb-0">Your cart</h2>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-outline-light">← Continue shopping</a>
+        </div>
+
+        <div id="cart-content">
+            <!-- Populated by JS -->
+            <div class="empty-state" id="cart-empty">
+                <div class="icon">🛒</div>
+                <h4 class="text-white-50">Your cart is empty</h4>
+                <p class="mb-3">Beautiful flowers are waiting for you.</p>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Browse the shop</a>
+            </div>
+
+            <div id="cart-items" style="display:none;">
+                <!-- JS injected cart rows here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="account-card sticky-lg-top" style="top: 90px;">
+            <h5 class="mb-3">Order summary</h5>
+
+            <div class="d-flex justify-content-between mb-2">
+                <span class="text-muted">Subtotal</span>
+                <strong id="summary-subtotal">$0.00</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+                <span class="text-muted">Delivery (local)</span>
+                <span id="summary-delivery">$8.00</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3 pt-2 border-top" style="border-color: var(--border) !important;">
+                <span class="fw-semibold">Total</span>
+                <strong id="summary-total" style="font-size:1.25rem;">$0.00</strong>
+            </div>
+
+            <button id="checkout-btn" class="btn btn-primary w-100 py-2 mb-2" disabled>
+                Complete purchase
+            </button>
+            <div class="text-center">
+                <small class="text-muted">or</small><br>
+                <a asp-controller="Home" asp-action="Index" class="small">add more flowers</a>
+            </div>
+
+            <div class="mt-4 small text-muted">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span>🌱</span> 
+                    <span>Locally grown • Same-day options in Perth metro</span>
+                </div>
+                <div>Secure checkout • 100% satisfaction guarantee</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Cart page specific logic (also uses global helpers from site.js if present)
+        document.addEventListener('DOMContentLoaded', function () {
+            renderFullCartPage();
+
+            const checkoutBtn = document.getElementById('checkout-btn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', handleCheckout);
+            }
+
+            // Keep nav badge in sync
+            if (typeof updateNavCartCount === 'function') updateNavCartCount();
+        });
+
+        function renderFullCartPage() {
+            const itemsContainer = document.getElementById('cart-items');
+            const empty = document.getElementById('cart-empty');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            let cart = [];
+            try { cart = JSON.parse(localStorage.getItem('petalCart') || '[]'); } catch (e) {}
+
+            if (!cart.length) {
+                if (itemsContainer) itemsContainer.style.display = 'none';
+                if (empty) empty.style.display = 'block';
+                if (checkoutBtn) checkoutBtn.disabled = true;
+                updateSummary(0);
+                return;
+            }
+
+            if (empty) empty.style.display = 'none';
+            if (itemsContainer) itemsContainer.style.display = 'block';
+
+            itemsContainer.innerHTML = '';
+
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                const lineTotal = (item.price || 0) * (item.qty || 1);
+                subtotal += lineTotal;
+
+                const row = document.createElement('div');
+                row.className = 'cart-item';
+                row.innerHTML = `
+                    <div style="width:62px;height:62px;background:linear-gradient(135deg,#1f242e,#161a22);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.85rem;flex-shrink:0;border:1px solid var(--border);">
+                        ${item.emoji || '🌸'}
+                    </div>
+                    <div class="info">
+                        <div class="fw-semibold">${escapeHtml(item.name || 'Flower')}</div>
+                        <div class="text-muted small">${escapeHtml(item.location || '')}</div>
+                        <div class="text-muted small mt-1">$${ (item.price || 0).toFixed(2) } each</div>
+                    </div>
+                    <div class="text-end" style="min-width:108px;">
+                        <div class="qty-control mb-1">
+                            <button type="button" data-action="dec" data-idx="${index}" aria-label="Decrease">-</button>
+                            <div class="qty">${item.qty || 1}</div>
+                            <button type="button" data-action="inc" data-idx="${index}" aria-label="Increase">+</button>
+                        </div>
+                        <div class="fw-bold">$${lineTotal.toFixed(2)}</div>
+                        <button type="button" class="btn btn-sm btn-link text-danger p-0 mt-1" data-action="remove" data-idx="${index}">Remove</button>
+                    </div>
+                `;
+                itemsContainer.appendChild(row);
+            });
+
+            // Attach listeners for qty + remove (event delegation)
+            itemsContainer.querySelectorAll('button[data-action]').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const action = this.dataset.action;
+                    const idx = parseInt(this.dataset.idx, 10);
+                    modifyCart(idx, action);
+                });
+            });
+
+            updateSummary(subtotal);
+            if (checkoutBtn) checkoutBtn.disabled = false;
+
+            // keep nav in sync
+            if (typeof updateNavCartCount === 'function') updateNavCartCount();
+        }
+
+        function modifyCart(index, action) {
+            let cart = [];
+            try { cart = JSON.parse(localStorage.getItem('petalCart') || '[]'); } catch (e) { return; }
+            if (!cart[index]) return;
+
+            if (action === 'inc') {
+                cart[index].qty = (cart[index].qty || 1) + 1;
+            } else if (action === 'dec') {
+                cart[index].qty = Math.max(1, (cart[index].qty || 1) - 1);
+            } else if (action === 'remove') {
+                cart.splice(index, 1);
+            }
+
+            localStorage.setItem('petalCart', JSON.stringify(cart));
+            renderFullCartPage();
+            if (typeof updateNavCartCount === 'function') updateNavCartCount();
+        }
+
+        function updateSummary(subtotal) {
+            const deliveryEl = document.getElementById('summary-delivery');
+            const subEl = document.getElementById('summary-subtotal');
+            const totalEl = document.getElementById('summary-total');
+
+            const delivery = subtotal > 0 ? 8.00 : 0;
+            const total = subtotal + delivery;
+
+            if (subEl) subEl.textContent = '$' + subtotal.toFixed(2);
+            if (deliveryEl) deliveryEl.textContent = subtotal > 0 ? '$' + delivery.toFixed(2) : '$0.00';
+            if (totalEl) totalEl.textContent = '$' + total.toFixed(2);
+        }
+
+        function handleCheckout() {
+            let cart = [];
+            try { cart = JSON.parse(localStorage.getItem('petalCart') || '[]'); } catch (e) {}
+
+            if (!cart.length) return;
+
+            const subtotal = cart.reduce((s, i) => s + (i.price || 0) * (i.qty || 1), 0);
+            const total = subtotal + 8;
+
+            // Fake processing
+            const btn = document.getElementById('checkout-btn');
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Processing...';
+            }
+
+            setTimeout(() => {
+                // Save a fake order for the account page
+                saveFakeOrder(cart, total);
+
+                // Clear cart
+                localStorage.removeItem('petalCart');
+
+                // Show beautiful success
+                const store = window.STORE || { displayName: 'the store' };
+                showToast(`Thank you! Your order has been placed with ${store.displayName}. ${store.emoji || '🌸'}`, 'success', 4200);
+
+                // Re-render empty state + update nav
+                renderFullCartPage();
+                if (typeof updateNavCartCount === 'function') updateNavCartCount();
+
+                // After a moment, offer to view orders in account
+                setTimeout(() => {
+                    const t = document.getElementById('toast-container');
+                    if (t) {
+                        const follow = document.createElement('div');
+                        follow.className = 'toast';
+                        follow.innerHTML = `
+                            <div class="toast-body">
+                                View your orders in <a href="/Secured" class="fw-semibold">Account</a> or 
+                                <a href="/" class="fw-semibold">continue shopping</a>.
+                            </div>`;
+                        t.appendChild(follow);
+                        setTimeout(() => follow.remove(), 6500);
+                    }
+                }, 1800);
+
+                if (btn) {
+                    btn.textContent = 'Order placed!';
+                    setTimeout(() => {
+                        if (btn) btn.textContent = 'Complete purchase';
+                    }, 1400);
+                }
+            }, 780);
+        }
+
+        function saveFakeOrder(cartItems, total) {
+            try {
+                const orders = JSON.parse(localStorage.getItem('petalOrders') || '[]');
+                const order = {
+                    id: 'PL-' + Date.now().toString(36).toUpperCase().slice(-6),
+                    date: new Date().toISOString(),
+                    items: cartItems.map(i => ({
+                        name: i.name,
+                        qty: i.qty || 1,
+                        price: i.price
+                    })),
+                    total: total,
+                    status: 'Confirmed'
+                };
+                orders.unshift(order); // newest first
+                // keep only last 6
+                localStorage.setItem('petalOrders', JSON.stringify(orders.slice(0, 6)));
+            } catch (e) {}
+        }
+
+        function escapeHtml(str) {
+            return String(str || '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+        }
+    </script>
+}

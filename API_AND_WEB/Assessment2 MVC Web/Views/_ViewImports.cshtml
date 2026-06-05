@@ -1,0 +1,6 @@
+﻿@using Assessment2_MVC_Web
+@using Assessment2_MVC_Web.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@* Centralized site branding - use @SiteSettings.Value.Name, .DisplayName, .Emoji, .Tagline everywhere *@
+@inject Microsoft.Extensions.Options.IOptions<SiteSettings> SiteSettings

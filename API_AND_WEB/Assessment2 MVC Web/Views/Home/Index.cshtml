@@ -1,0 +1,542 @@
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<!-- HERO -->
+<div class="hero">
+    <div class="row align-items-center">
+        <div class="col-lg-7">
+            <h1>Fresh flowers,<br>grown with care.</h1>
+            <p class="lead mb-3 text-muted">Curated blooms from local Perth growers. Same-day collection available across the metro.</p>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="#shop-grid" class="btn btn-primary btn-lg px-4">Shop the collection</a>
+                <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-light btn-lg">View cart</a>
+            </div>
+            <div class="mt-3 small text-muted">
+                33+ varieties • 5 grower categories • Always seasonal &amp; fresh
+            </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block text-center" style="font-size:6.5rem; opacity:.85;">
+            🌸 🌿 🪷
+        </div>
+    </div>
+</div>
+
+<!-- SHOP CONTENT -->
+<div id="shop-grid">
+    <div class="d-flex flex-wrap align-items-end justify-content-between mb-2">
+        <div>
+            <h3 class="section-title mb-1">The collection</h3>
+            <div id="results-count" class="text-muted small">Loading beautiful flowers…</div>
+        </div>
+        <div>
+            <button id="clear-filters-btn" class="btn btn-sm btn-outline-light">Clear filters</button>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="shop-toolbar">
+        <div class="flex-grow-1" style="min-width:220px;">
+            <input id="search-input" type="search" class="form-control form-control-sm" placeholder="Search by name (e.g. lily, rose, gerbera…)">
+        </div>
+
+        <div style="min-width:148px;">
+            <select id="sort-select" class="form-select form-select-sm">
+                <option value="name-asc">Name A–Z</option>
+                <option value="name-desc">Name Z–A</option>
+                <option value="price-asc">Price: low to high</option>
+                <option value="price-desc">Price: high to low</option>
+                <option value="location">Location</option>
+            </select>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="checkbox" id="in-stock-only" checked>
+                <label class="form-check-label small" for="in-stock-only">In stock only</label>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2 align-items-center">
+            <input id="price-min" type="number" step="1" min="0" class="form-control form-control-sm" placeholder="Min $" style="width:78px;">
+            <span class="text-muted">–</span>
+            <input id="price-max" type="number" step="1" min="0" class="form-control form-control-sm" placeholder="Max $" style="width:78px;">
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="mb-2">
+        <div class="small text-muted mb-1" style="letter-spacing:.04em;">CATEGORIES</div>
+        <div id="category-pills" class="category-pills"></div>
+    </div>
+
+    <!-- Products grid -->
+    <div id="product-grid" class="product-grid">
+        <!-- Cards injected by JS -->
+    </div>
+
+    <div id="grid-empty" class="empty-state" style="display:none;">
+        <div class="icon">🌵</div>
+        <p class="mb-1">No flowers match your filters.</p>
+        <button id="reset-from-empty" class="btn btn-sm btn-outline-light">Reset filters</button>
+    </div>
+
+    <!-- You might also like (populated after load) -->
+    <div id="also-like" class="mt-5" style="display:none;">
+        <div class="section-title">You might also like</div>
+        <div id="also-like-grid" class="product-grid"></div>
+    </div>
+</div>
+
+<!-- Product Detail Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-name"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-4">
+                    <div class="col-5">
+                        <div id="modal-image" 
+                             style="height:170px;border-radius:10px;background:linear-gradient(135deg,#1f242e,#161a22);display:flex;align-items:center;justify-content:center;font-size:4.5rem;border:1px solid var(--border);">
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span id="modal-category" class="badge-soft px-2 py-1"></span>
+                            <span id="modal-availability" class="availability"></span>
+                        </div>
+
+                        <div class="mb-1">
+                            <span class="text-muted small">From</span><br>
+                            <strong id="modal-location"></strong>
+                            <span class="text-muted" id="modal-postcode"></span>
+                        </div>
+
+                        <div class="mt-3">
+                            <span class="text-muted small">Price</span><br>
+                            <span id="modal-price" style="font-size:1.65rem;font-weight:700;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 pt-3 border-top" style="border-color:var(--border)">
+                    <div class="small text-muted mb-1">Why you'll love it</div>
+                    <p id="modal-description" class="mb-2" style="font-size:.95rem;"></p>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <div>
+                            <label class="form-label small mb-1">Quantity</label>
+                            <div class="qty-control">
+                                <button type="button" id="modal-qty-dec">-</button>
+                                <div class="qty" id="modal-qty">1</div>
+                                <button type="button" id="modal-qty-inc">+</button>
+                            </div>
+                        </div>
+                        <div class="ms-auto text-end">
+                            <div class="text-muted small">Line total</div>
+                            <div id="modal-line-total" style="font-size:1.35rem;font-weight:700;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="modal-add-btn" class="btn btn-primary">Add to cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // ========== SHOP PAGE LOGIC ==========
+        let allProducts = [];
+        let allCategories = [];
+        let activeCategoryIds = new Set();
+        let currentModalProduct = null;
+        let modalQty = 1;
+
+        const API_PRODUCTS = '/api/v1.0/PublicStoreControllerV/public_display_all_products';
+        const API_CATEGORIES = '/api/v1.0/PublicStoreControllerV/public_display_all_categories';
+
+        document.addEventListener('DOMContentLoaded', initShop);
+
+        async function initShop() {
+            const grid = document.getElementById('product-grid');
+            const countEl = document.getElementById('results-count');
+
+            // Wire filter controls (live)
+            wireFilters();
+
+            // Initial fetch
+            try {
+                countEl.textContent = 'Loading flowers from local growers…';
+
+                // Fetch categories first (for joins + pills)
+                allCategories = await fetchFromAPI(API_CATEGORIES);
+
+                // Fetch products (v1 controller path)
+                const rawProducts = await fetchFromAPI(API_PRODUCTS);
+
+                // Normalize + enrich
+                allProducts = rawProducts.map(p => {
+                    const cat = allCategories.find(c => (c.Id || c.id) === (p.CategoryId || p.categoryId));
+                    const categoryName = cat ? (cat.Name || cat.name) : 'Other';
+                    return {
+                        id: p.Id || p.id,
+                        name: p.Name || p.name,
+                        price: p.Price || p.price,
+                        storeLocation: p.StoreLocation || p.storeLocation,
+                        postCode: p.PostCode || p.postCode,
+                        isAvailable: p.IsAvailable !== false && (p.IsAvailable || p.isAvailable),
+                        categoryId: p.CategoryId || p.categoryId,
+                        categoryName: categoryName,
+                        emoji: getProductEmoji(p, categoryName)
+                    };
+                });
+
+                // Build category pills
+                renderCategoryPills();
+
+                // Handle ?q= from nav search
+                const params = new URLSearchParams(location.search);
+                const initialQ = params.get('q') || '';
+                if (initialQ) {
+                    const searchInput = document.getElementById('search-input');
+                    if (searchInput) searchInput.value = initialQ;
+                }
+
+                // Initial render
+                applyFiltersAndRender();
+
+                // Show a small "you might also like" section with random picks
+                renderYouMightAlsoLike();
+
+                // Bonus: pre-select "in stock" is already checked in markup
+            } catch (err) {
+                console.error(err);
+                countEl.innerHTML = `<span class="text-danger">Could not load products from the API.</span> Is the API running on port 7209?`;
+                grid.innerHTML = `
+                    <div class="empty-state col-12">
+                        <div class="icon">📡</div>
+                        <p>Make sure the FlowerSales.API is running (https://localhost:7209) and MongoDB is seeded.</p>
+                        <button class="btn btn-sm btn-primary" onclick="location.reload()">Try again</button>
+                    </div>`;
+            }
+
+            // Update cart badge on load
+            if (typeof updateNavCartCount === 'function') updateNavCartCount();
+        }
+
+        function wireFilters() {
+            const ids = ['search-input', 'sort-select', 'in-stock-only', 'price-min', 'price-max'];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const event = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'input';
+                el.addEventListener(event, debounce(applyFiltersAndRender, 140));
+            });
+
+            const clearBtn = document.getElementById('clear-filters-btn');
+            if (clearBtn) clearBtn.addEventListener('click', clearAllFilters);
+
+            const resetEmpty = document.getElementById('reset-from-empty');
+            if (resetEmpty) resetEmpty.addEventListener('click', clearAllFilters);
+        }
+
+        function debounce(fn, delay) {
+            let t;
+            return (...args) => {
+                clearTimeout(t);
+                t = setTimeout(() => fn.apply(this, args), delay);
+            };
+        }
+
+        function renderCategoryPills() {
+            const container = document.getElementById('category-pills');
+            if (!container || !allCategories.length) return;
+            container.innerHTML = '';
+
+            // Sort categories nicely
+            const sorted = [...allCategories].sort((a, b) => (a.Name || a.name || '').localeCompare(b.Name || b.name || ''));
+
+            sorted.forEach(cat => {
+                const id = cat.Id || cat.id;
+                const name = cat.Name || cat.name || 'Unknown';
+                const pill = document.createElement('div');
+                pill.className = 'category-pill';
+                pill.textContent = name;
+                pill.dataset.id = id;
+
+                pill.addEventListener('click', () => {
+                    if (activeCategoryIds.has(id)) {
+                        activeCategoryIds.delete(id);
+                        pill.classList.remove('active');
+                    } else {
+                        activeCategoryIds.add(id);
+                        pill.classList.add('active');
+                    }
+                    applyFiltersAndRender();
+                });
+
+                container.appendChild(pill);
+            });
+        }
+
+        function clearAllFilters() {
+            // reset inputs
+            const search = document.getElementById('search-input');
+            const sort = document.getElementById('sort-select');
+            const stock = document.getElementById('in-stock-only');
+            const pmin = document.getElementById('price-min');
+            const pmax = document.getElementById('price-max');
+
+            if (search) search.value = '';
+            if (sort) sort.value = 'name-asc';
+            if (stock) stock.checked = true;
+            if (pmin) pmin.value = '';
+            if (pmax) pmax.value = '';
+
+            activeCategoryIds.clear();
+            document.querySelectorAll('#category-pills .category-pill').forEach(p => p.classList.remove('active'));
+
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            const searchEl = document.getElementById('search-input');
+            const sortEl = document.getElementById('sort-select');
+            const stockEl = document.getElementById('in-stock-only');
+            const minEl = document.getElementById('price-min');
+            const maxEl = document.getElementById('price-max');
+
+            const q = (searchEl ? searchEl.value : '').toLowerCase().trim();
+            const sortMode = sortEl ? sortEl.value : 'name-asc';
+            const onlyStock = !!(stockEl && stockEl.checked);
+            const minPrice = minEl && minEl.value ? parseFloat(minEl.value) : null;
+            const maxPrice = maxEl && maxEl.value ? parseFloat(maxEl.value) : null;
+
+            let filtered = allProducts.filter(p => {
+                if (onlyStock && !p.isAvailable) return false;
+                if (minPrice !== null && p.price < minPrice) return false;
+                if (maxPrice !== null && p.price > maxPrice) return false;
+                if (activeCategoryIds.size > 0 && !activeCategoryIds.has(p.categoryId)) return false;
+
+                if (q) {
+                    const hay = `${p.name} ${p.storeLocation} ${p.categoryName}`.toLowerCase();
+                    if (!hay.includes(q)) return false;
+                }
+                return true;
+            });
+
+            // Sort
+            filtered.sort((a, b) => {
+                switch (sortMode) {
+                    case 'name-desc': return b.name.localeCompare(a.name);
+                    case 'price-asc': return a.price - b.price;
+                    case 'price-desc': return b.price - a.price;
+                    case 'location': return (a.storeLocation || '').localeCompare(b.storeLocation || '');
+                    case 'name-asc':
+                    default: return a.name.localeCompare(b.name);
+                }
+            });
+
+            renderProductGrid(filtered);
+
+            // Update count
+            const countEl = document.getElementById('results-count');
+            if (countEl) {
+                const total = allProducts.length;
+                if (filtered.length === total) {
+                    countEl.textContent = `${total} flowers available`;
+                } else {
+                    countEl.textContent = `Showing ${filtered.length} of ${total}`;
+                }
+            }
+        }
+
+        function renderProductGrid(products) {
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('grid-empty');
+            if (!grid || !empty) return;
+
+            grid.innerHTML = '';
+            if (!products.length) {
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+
+            products.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+
+                const availClass = prod.isAvailable ? 'in-stock' : 'out-stock';
+                const availText = prod.isAvailable ? 'In stock' : 'Sold out';
+
+                card.innerHTML = `
+                    <div class="product-image">
+                        <span class="emoji">${prod.emoji}</span>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-name">${escapeHtml(prod.name)}</div>
+                        <div class="product-location">${escapeHtml(prod.storeLocation || 'Perth')}</div>
+
+                        <div class="product-meta">
+                            <div class="product-price">$${prod.price.toFixed(2)}</div>
+                            <div class="availability ${availClass}">${availText}</div>
+                        </div>
+
+                        <div class="product-actions">
+                            <button class="btn btn-outline-light details-btn" type="button">Details</button>
+                            <button class="btn btn-accent add-btn" type="button" ${!prod.isAvailable ? 'disabled' : ''}>
+                                ${prod.isAvailable ? 'Add' : '—'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // Click whole card opens details (except buttons)
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('button')) return;
+                    openProductModal(prod);
+                });
+
+                // Buttons
+                const detailsBtn = card.querySelector('.details-btn');
+                detailsBtn.addEventListener('click', (e) => {
+                    e.stopImmediatePropagation();
+                    openProductModal(prod);
+                });
+
+                const addBtn = card.querySelector('.add-btn');
+                addBtn.addEventListener('click', (e) => {
+                    e.stopImmediatePropagation();
+                    if (prod.isAvailable) addToCart(prod);
+                });
+
+                grid.appendChild(card);
+            });
+        }
+
+        function openProductModal(product) {
+            currentModalProduct = product;
+            modalQty = 1;
+
+            const modalEl = document.getElementById('productModal');
+            if (!modalEl) return;
+
+            // Populate fields
+            document.getElementById('modal-name').textContent = product.name;
+            document.getElementById('modal-image').innerHTML = `<span style="font-size:4.8rem;">${product.emoji}</span>`;
+            document.getElementById('modal-category').textContent = product.categoryName || 'Flower';
+            document.getElementById('modal-location').textContent = product.storeLocation || 'Perth area';
+            document.getElementById('modal-postcode').textContent = product.postCode ? ` • ${product.postCode}` : '';
+
+            const availEl = document.getElementById('modal-availability');
+            availEl.textContent = product.isAvailable ? 'Available now' : 'Currently unavailable';
+            availEl.className = 'availability ' + (product.isAvailable ? 'in-stock' : 'out-stock');
+
+            document.getElementById('modal-price').textContent = '$' + product.price.toFixed(2);
+
+            // Fun description
+            const desc = `Hand-selected ${product.categoryName ? product.categoryName.toLowerCase() : 'bloom'} grown by our partners near ${product.storeLocation || 'Perth'}. Fresh cut and ready for your home or a thoughtful gift.`;
+            document.getElementById('modal-description').textContent = desc;
+
+            // Qty + line total
+            updateModalQtyUI();
+
+            // Add button state
+            const addBtn = document.getElementById('modal-add-btn');
+            addBtn.disabled = !product.isAvailable;
+            addBtn.textContent = product.isAvailable ? 'Add to cart' : 'Sold out';
+
+            // Remove old listeners by cloning
+            const newAddBtn = addBtn.cloneNode(true);
+            addBtn.parentNode.replaceChild(newAddBtn, addBtn);
+            newAddBtn.addEventListener('click', () => {
+                if (!currentModalProduct) return;
+                const toAdd = { ...currentModalProduct };
+                // apply chosen qty
+                for (let i = 0; i < modalQty; i++) {
+                    addToCart(toAdd);
+                }
+                // close modal after adding
+                const bsModal = bootstrap.Modal.getInstance(modalEl);
+                if (bsModal) bsModal.hide();
+            });
+
+            // Qty buttons
+            const dec = document.getElementById('modal-qty-dec');
+            const inc = document.getElementById('modal-qty-inc');
+            const qtyEl = document.getElementById('modal-qty');
+
+            // clean listeners
+            const newDec = dec.cloneNode(true);
+            const newInc = inc.cloneNode(true);
+            dec.parentNode.replaceChild(newDec, dec);
+            inc.parentNode.replaceChild(newInc, inc);
+
+            newDec.addEventListener('click', () => { modalQty = Math.max(1, modalQty - 1); updateModalQtyUI(); });
+            newInc.addEventListener('click', () => { modalQty = Math.min(12, modalQty + 1); updateModalQtyUI(); });
+
+            // Show
+            const bsModal = new bootstrap.Modal(modalEl);
+            bsModal.show();
+        }
+
+        function updateModalQtyUI() {
+            const qtyEl = document.getElementById('modal-qty');
+            const totalEl = document.getElementById('modal-line-total');
+            if (!currentModalProduct || !qtyEl || !totalEl) return;
+
+            qtyEl.textContent = modalQty;
+            const line = currentModalProduct.price * modalQty;
+            totalEl.textContent = '$' + line.toFixed(2);
+        }
+
+        // Expose for debugging / reload if needed
+        window.PETAL_RELOAD_SHOP = () => location.reload();
+
+        function renderYouMightAlsoLike() {
+            const section = document.getElementById('also-like');
+            const grid = document.getElementById('also-like-grid');
+            if (!section || !grid || !allProducts.length) return;
+
+            // pick 4 random different products
+            const shuffled = [...allProducts].sort(() => Math.random() - 0.5);
+            const picks = shuffled.slice(0, 4);
+
+            grid.innerHTML = '';
+            picks.forEach(prod => {
+                const mini = document.createElement('div');
+                mini.className = 'product-card';
+                mini.style.cursor = 'pointer';
+                mini.innerHTML = `
+                    <div class="product-image" style="height:102px;font-size:2.4rem;">
+                        <span>${prod.emoji}</span>
+                    </div>
+                    <div class="product-body py-2 px-2" style="font-size:.92rem;">
+                        <div class="fw-semibold text-truncate">${escapeHtml(prod.name)}</div>
+                        <div class="d-flex justify-content-between align-items-center mt-1">
+                            <span class="fw-bold">$${prod.price.toFixed(2)}</span>
+                            <button class="btn btn-sm btn-accent py-0 px-2" style="font-size:.78rem;">Add</button>
+                        </div>
+                    </div>
+                `;
+                mini.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') {
+                        addToCart(prod);
+                    } else {
+                        openProductModal(prod);
+                    }
+                });
+                grid.appendChild(mini);
+            });
+            section.style.display = 'block';
+        }
+    </script>
+}

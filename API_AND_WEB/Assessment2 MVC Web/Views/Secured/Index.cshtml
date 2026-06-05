@@ -1,0 +1,140 @@
+@{
+    ViewData["Title"] = "Account";
+}
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="account-card">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div style="width:62px;height:62px;border-radius:999px;background:linear-gradient(135deg,var(--accent),#166534);display:flex;align-items:center;justify-content:center;font-size:1.9rem;">
+                    👤
+                </div>
+                <div>
+                    <div class="text-muted small">Signed in as</div>
+                    <h4 class="mb-0">@(User.Identity?.Name ?? "Member")</h4>
+                    @if (ViewBag.Roles is List<string> roles && roles.Any())
+                    {
+                        foreach (var role in roles)
+                        {
+                            var isAdmin = role.Equals("Admin", StringComparison.OrdinalIgnoreCase);
+                            var badgeClass = isAdmin 
+                                ? "badge-soft small px-2 border border-success text-success fw-semibold" 
+                                : "badge-soft small px-2";
+                            <span class="@badgeClass me-1" title="@(isAdmin ? "Administrator privileges" : "")">@role@(isAdmin ? " ★" : "")</span>
+                        }
+                    }
+                    else if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <span class="badge-soft small px-2">User</span>
+                    }
+                </div>
+            </div>
+
+            <div class="border-top pt-3" style="border-color:var(--border)">
+                <div class="row small">
+                    <div class="col-6 text-muted">Email</div>
+                    <div class="col-6">@(User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "—")</div>
+                </div>
+                <div class="row small mt-1">
+                    <div class="col-6 text-muted">Member since</div>
+                    <div class="col-6">
+                        @if (ViewBag.CreatedOn is DateTime created)
+                        {
+                            @created.ToString("d MMM yyyy")
+                        }
+                        else
+                        {
+                            <span class="text-muted fst-italic">Unknown (created before tracking)</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-light w-100 mb-2">View cart</a>
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="btn btn-danger w-100">Sign out</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-3 small text-muted px-1">
+            This page is protected with cookie authentication. Your identity is stored in our shared MongoDB.
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="account-card">
+            <h5 class="mb-3 d-flex align-items-center gap-2">
+                Recent orders 
+                <span class="badge-soft px-2 py-1 small fw-normal">local demo</span>
+            </h5>
+
+            <div id="orders-list">
+                <!-- JS populated from localStorage 'petalOrders' -->
+                <div class="text-muted small py-4 text-center" id="no-orders">
+                    No orders yet. Complete a purchase from the cart to see your history here.
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 px-1">
+            <h6 class="text-muted mb-2 small">Identity details (debug)</h6>
+            <div class="small" style="max-height: 140px; overflow:auto; font-family: ui-monospace, monospace; background:var(--surface-2); padding:.6rem .8rem; border-radius:6px; border:1px solid var(--border);">
+                @foreach (var claim in User.Claims)
+                {
+                    <div><span class="text-subtle">@claim.Type:</span> @claim.Value</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            loadFakeOrders();
+        });
+
+        function loadFakeOrders() {
+            const container = document.getElementById('orders-list');
+            const empty = document.getElementById('no-orders');
+            if (!container) return;
+
+            let orders = [];
+            try { orders = JSON.parse(localStorage.getItem('petalOrders') || '[]'); } catch (e) {}
+
+            if (!orders.length) {
+                if (empty) empty.style.display = 'block';
+                return;
+            }
+            if (empty) empty.style.display = 'none';
+
+            container.innerHTML = '';
+
+            orders.forEach(order => {
+                const el = document.createElement('div');
+                el.className = 'order-row d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2';
+
+                const date = new Date(order.date);
+                const dateStr = date.toLocaleDateString(undefined, { month:'short', day:'numeric' }) + ' ' + date.toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'});
+
+                let itemsHtml = (order.items || []).map(i => 
+                    `${i.qty}× ${i.name}`
+                ).join(', ');
+
+                el.innerHTML = `
+                    <div>
+                        <div class="fw-semibold">${order.id}</div>
+                        <div class="text-muted small">${dateStr} • ${order.status || 'Confirmed'}</div>
+                    </div>
+                    <div class="text-md-end">
+                        <div class="small text-muted">${itemsHtml || 'Items'}</div>
+                        <div class="fw-bold">$${parseFloat(order.total).toFixed(2)}</div>
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+        }
+    </script>
+}

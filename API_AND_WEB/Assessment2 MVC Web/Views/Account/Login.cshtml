@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Log in";
+    var returnUrl = ViewData["ReturnUrl"] as string;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5 col-lg-4">
+        <div class="account-card mt-4">
+            <div class="text-center mb-4">
+                <div style="font-size:2.1rem; margin-bottom:.35rem;">🌿</div>
+                <h2 class="mb-1">Welcome back</h2>
+                <p class="text-muted mb-0 small">Sign in to manage orders and checkout faster</p>
+            </div>
+
+            @if (ViewData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success small py-2 mb-3">@ViewData["SuccessMessage"]</div>
+            }
+
+            <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+            <form method="post" asp-route-returnUrl="@returnUrl">
+                <input type="hidden" name="returnUrl" value="@returnUrl" />
+
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email address</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="you@email.com" required autofocus />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 mt-1">Log in to @SiteSettings.Value.DisplayName</button>
+
+                <div class="text-center mt-3">
+                    <small class="text-muted">
+                        Don't have an account? 
+                        <a asp-controller="Operations" asp-action="Create" class="fw-semibold">Create one</a>
+                    </small>
+                </div>
+            </form>
+        </div>
+
+        <p class="text-center text-muted mt-3 small">
+            Demo: any registered email + password works. New accounts get the "User" role.
+        </p>
+    </div>
+</div>

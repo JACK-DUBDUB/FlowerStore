@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] • @SiteSettings.Value.Name</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- Removed Assessment2_MVC_Web.styles.css (was causing 404; all styling is in site.css) -->
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg sticky-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span style="font-size:1.45rem;">@SiteSettings.Value.Emoji</span>
+                    <span><strong>@SiteSettings.Value.Name</strong><span class="logo-dot">.</span></span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <!-- Main nav links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Cart" asp-action="Index">Cart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">About</a>
+                        </li>
+                    </ul>
+
+                    <!-- Global search (posts to home with q) -->
+                    <form class="d-flex me-lg-3 my-2 my-lg-0" role="search" method="get" asp-controller="Home" asp-action="Index">
+                        <div class="input-group input-group-sm" style="min-width: 210px;">
+                            <input type="search" name="q" class="form-control" placeholder="Search flowers..." aria-label="Search flowers">
+                            <button class="btn btn-outline-light" type="submit">Search</button>
+                        </div>
+                    </form>
+
+                    <!-- Right side actions -->
+                    <ul class="navbar-nav align-items-center">
+                        <!-- Cart icon -->
+                        <li class="nav-item me-1">
+                            <a asp-controller="Cart" asp-action="Index" class="btn btn-sm btn-outline-light cart-btn" id="nav-cart-btn" title="View cart">
+                                🛒
+                                <span class="cart-badge" id="nav-cart-count" style="display:none;">0</span>
+                            </a>
+                        </li>
+
+                        @if (User?.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="me-1">👤</span>
+                                    <span class="d-none d-md-inline">@(User.Identity?.Name ?? "Account")</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" asp-controller="Secured" asp-action="Index">Account</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Cart" asp-action="Index">My Cart</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                            <button type="submit" class="dropdown-item text-danger">Sign out</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-sm btn-outline-light me-2" asp-controller="Operations" asp-action="Create">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-sm btn-primary" asp-controller="Account" asp-action="Login">Log in</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Server flash messages (from TempData / ViewData) -->
+    @if (TempData["SuccessMessage"] != null || ViewData["SuccessMessage"] != null)
+    {
+        <div class="container mt-3">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @(TempData["SuccessMessage"] ?? ViewData["SuccessMessage"])
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    }
+    @if (ViewData["ErrorMessage"] != null)
+    {
+        <div class="container mt-3">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @ViewData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    }
+
+    <main class="container py-4">
+        @RenderBody()
+    </main>
+
+    <footer class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <div>
+                © @DateTime.Now.Year @SiteSettings.Value.Name • @SiteSettings.Value.Tagline
+            </div>
+            <div class="d-flex gap-3 small">
+                <a asp-controller="Home" asp-action="Privacy">About us</a>
+                <a href="#!" onclick="showFakeInfo()">Store locations</a>
+                <a href="#!" onclick="showFakeInfo()">Sustainability</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global toast container (used by shop.js and pages) -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @* Expose centralized store branding to JavaScript (e.g. for dynamic toasts, modals, etc.) *@
+    <script>
+        window.STORE = {
+            name: '@SiteSettings.Value.Name',
+            displayName: '@SiteSettings.Value.DisplayName',
+            emoji: '@SiteSettings.Value.Emoji',
+            tagline: '@SiteSettings.Value.Tagline'
+        };
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // Cart badge + storage listener are provided by site.js
+        // Call the shared function if it exists (defensive for load order)
+        if (typeof updateNavCartCount === 'function') {
+            updateNavCartCount();
+        }
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'petalCart' && typeof updateNavCartCount === 'function') {
+                updateNavCartCount();
+            }
+        });
+
+        function showFakeInfo() {
+            const t = document.getElementById('toast-container');
+            if (!t) return;
+            const toast = document.createElement('div');
+            toast.className = 'toast success';
+            toast.innerHTML = `
+                <div class="toast-body d-flex align-items-center">
+                    <div class="me-2">📍</div>
+                    <div>Our flowers come from partner growers across Perth metro and surrounds (Canning Vale, Fremantle, Armadale, etc). Visit us in-store or order online for same-day pickup options.</div>
+                </div>`;
+            t.appendChild(toast);
+            setTimeout(() => toast.remove(), 5200);
+        }
+    </script>
+</body>
+</html>
