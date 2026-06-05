@@ -5,4 +5,7 @@ appsettings.*.json
 !appsettings.example.json
 .env
 .env.*
+.vs/
 *.user
+*.userosscache
+*.sln.docstates
